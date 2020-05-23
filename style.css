@@ -1,0 +1,25 @@
+.cells-container .cells {
+  width: 500px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[10];
+      grid-template-columns: repeat(10, 1fr);
+  list-style: none;
+  padding: 0;
+}
+
+.cells-container .cells .cell {
+  width: 50px;
+  height: 50px;
+  background-color: lightgrey;
+  border: 1px solid red;
+}
+
+.cells-container .cells .cell.vide {
+  background-color: lightgrey;
+}
+
+.cells-container .cells .cell.innacessible {
+  background-color: lightcoral;
+}
+/*# sourceMappingURL=style.css.map */
