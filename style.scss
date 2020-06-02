@@ -1,11 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 body,
 html {
     margin: 0;
     padding: 0;
+    background-color: rgb(14, 14, 14);
+}
+
+.players-wrapper {
+    display: flex;
+    height: 80px;
+    font-size: 23px;
+    color: white;
+    font-family: 'VT323', monospace;
+    box-sizing: border-box;
+    background: linear-gradient(0, rgba(16,18,54,1) 0%, rgba(9,11,36,1) 100%, rgba(0,0,0,1) 100%);
+
+    .player {
+        position: relative;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        background: rgba($color: #000000, $alpha: 0);
+        transition: .5s ease-in-out;
+
+        .current-turn {
+            opacity: 0;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: rgb(224, 61, 203);
+            transition: .5s ease-in-out;
+        }
+
+        @keyframes opacity-changing {
+            0% {
+                opacity: .7;
+            }
+            
+            50% {
+                opacity: 1;
+            }
+            
+            100% {
+                opacity: .7;
+            }
+        }
+
+        &.active {
+            background: rgba($color: rgb(55, 57, 153), $alpha: 1);
+
+            .current-turn {
+                opacity: 1;
+                animation: opacity-changing .7s infinite;
+            }
+        }
+
+
+        &:first-of-type {
+            justify-content: flex-end;
+            text-align: right;
+
+            img {
+                transform: scaleX(-1);
+            }
+
+            .current-turn {
+                right: auto;
+                left: 10px;
+                top: 10px;
+            }
+        }
+
+        .wrapper-img {
+            height: 100%;
+
+            img {
+                height: 100%;
+            }
+        }
+
+        .wrapper-infos {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 20px;
+        }
+    }
 }
 
 .cells-container {
     .cells {
+        margin: auto;
         width: 500px;
         display: grid;
         grid-template-columns: repeat(10, 1fr);
@@ -17,28 +105,56 @@ html {
             height: 50px;
             background-color: lightgrey;
             border: 1px solid rgb(80, 80, 80);
+            box-sizing: border-box;
 
             &.vide {
-                background-color: lightgrey;
+                background-color: rgb(190, 190, 190);
             }
 
             &.innacessible {
-                background-color: grey;
+                background-color: rgb(58, 58, 58);
             }
 
-            &.weapon {
+            &.weapon,
+            &.player {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-color: rgb(114, 194, 114);
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 75%;
             }
 
-            img {
-                padding: 5px;
-                width: 50px;
-                height: auto;
-                object-fit: contain;
-                box-sizing: border-box;
+            &.can-go {
+                background-color: cyan;
+            }
+            
+            &[data-weapon="poing"] {
+                background-image: url('img/poing.png');
+                background-color: rgb(114, 194, 114);
+            }
+            
+            &[data-weapon="baton"] {
+                background-image: url('img/baton.png');
+                background-color: rgb(79, 117, 187);
+            }
+            
+            &[data-weapon="lance"] {
+                background-image: url('img/lance.png');
+                background-color: rgb(218, 120, 90);
+            }
+            
+            &[data-weapon="epee"] {
+                background-image: url('img/epee.png');
+                background-color: rgb(179, 70, 194);
+            }
+
+            &[data-player="player1"] {
+                background-image: url('img/player-1.png');
+            }
+
+            &[data-player="player2"] {
+                background-image: url('img/player-2.png');
             }
         }
     }

@@ -1,10 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 body,
 html {
   margin: 0;
   padding: 0;
+  background-color: #0e0e0e;
+}
+
+.players-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 80px;
+  font-size: 23px;
+  color: white;
+  font-family: 'VT323', monospace;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: -webkit-gradient(linear, left top, left bottom, from(0), color-stop(0%, #101236), color-stop(100%, #090b24), to(black));
+  background: linear-gradient(0, #101236 0%, #090b24 100%, black 100%);
+}
+
+.players-wrapper .player {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: rgba(0, 0, 0, 0);
+  -webkit-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}
+
+.players-wrapper .player .current-turn {
+  opacity: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #e03dcb;
+  -webkit-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+}
+
+@-webkit-keyframes opacity-changing {
+  0% {
+    opacity: .7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .7;
+  }
+}
+
+@keyframes opacity-changing {
+  0% {
+    opacity: .7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .7;
+  }
+}
+
+.players-wrapper .player.active {
+  background: #373999;
+}
+
+.players-wrapper .player.active .current-turn {
+  opacity: 1;
+  -webkit-animation: opacity-changing .7s infinite;
+          animation: opacity-changing .7s infinite;
+}
+
+.players-wrapper .player:first-of-type {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  text-align: right;
+}
+
+.players-wrapper .player:first-of-type img {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+}
+
+.players-wrapper .player:first-of-type .current-turn {
+  right: auto;
+  left: 10px;
+  top: 10px;
+}
+
+.players-wrapper .player .wrapper-img {
+  height: 100%;
+}
+
+.players-wrapper .player .wrapper-img img {
+  height: 100%;
+}
+
+.players-wrapper .player .wrapper-infos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0 20px;
 }
 
 .cells-container .cells {
+  margin: auto;
   width: 500px;
   display: -ms-grid;
   display: grid;
@@ -19,17 +135,19 @@ html {
   height: 50px;
   background-color: lightgrey;
   border: 1px solid #505050;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .cells-container .cells .cell.vide {
-  background-color: lightgrey;
+  background-color: #bebebe;
 }
 
 .cells-container .cells .cell.innacessible {
-  background-color: grey;
+  background-color: #3a3a3a;
 }
 
-.cells-container .cells .cell.weapon {
+.cells-container .cells .cell.weapon, .cells-container .cells .cell.player {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -39,16 +157,40 @@ html {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 75%;
+}
+
+.cells-container .cells .cell.can-go {
+  background-color: cyan;
+}
+
+.cells-container .cells .cell[data-weapon="poing"] {
+  background-image: url("img/poing.png");
   background-color: #72c272;
 }
 
-.cells-container .cells .cell img {
-  padding: 5px;
-  width: 50px;
-  height: auto;
-  -o-object-fit: contain;
-     object-fit: contain;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+.cells-container .cells .cell[data-weapon="baton"] {
+  background-image: url("img/baton.png");
+  background-color: #4f75bb;
+}
+
+.cells-container .cells .cell[data-weapon="lance"] {
+  background-image: url("img/lance.png");
+  background-color: #da785a;
+}
+
+.cells-container .cells .cell[data-weapon="epee"] {
+  background-image: url("img/epee.png");
+  background-color: #b346c2;
+}
+
+.cells-container .cells .cell[data-player="player1"] {
+  background-image: url("img/player-1.png");
+}
+
+.cells-container .cells .cell[data-player="player2"] {
+  background-image: url("img/player-2.png");
 }
 /*# sourceMappingURL=style.css.map */

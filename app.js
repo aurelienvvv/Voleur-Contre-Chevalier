@@ -55,22 +55,25 @@ function addWeapons(cells) {
         {
             name: 'Poing Américain',
             damage: '1',
-            visuel: 'img/poing.png'
+            dataAttr: 'poing'
         },
         {
             name: 'Baton',
             damage: '3',
-            visuel: 'img/baton.png'
+            visuel: 'img/baton.png',
+            dataAttr: 'baton'
         },
         {
             name: 'Lance',
             damage: '6',
-            visuel: 'img/lance.png'
+            visuel: 'img/lance.png',
+            dataAttr: 'lance'
         },
         {
             name: 'Epee',
             damage: '10',
-            visuel: 'img/epee.png'
+            visuel: 'img/epee.png',
+            dataAttr: 'epee'
         }
     ];
 
@@ -80,10 +83,19 @@ function addWeapons(cells) {
     // ajoute les armes aux cases vides au hasard
     weapons.map(weapon => selectRandom(emptyCells).weapon = weapon);
 
-    // retire le statut 'vide' aux cases avec une arme
-    cells.filter(cell => cell.weapon).map(cell => cell.state = "");
+    // vérifie les armes présentes dans l'objet cells
+    let weaponsCheck = cells.filter(cell => cell.weapon);
 
-    return cells
+    // si il n'y a pas assez d'armes, réajout des armes dans cells
+    if (weaponsCheck.length !== weapons.length) {
+        cells.map(cell => delete cell.weapon);
+        weapons.map(weapon => selectRandom(emptyCells).weapon = weapon);
+    };
+
+    // retire la clé 'statut' aux cases avec une arme
+    cells.filter(cell => cell.weapon).map(cell => delete cell.state);
+
+    return cells;
 }
 
 function addPlayers(cells) {
@@ -91,18 +103,19 @@ function addPlayers(cells) {
         {
             name: 'Player 1',
             life: 100,
-            visuel: 'img/player-1.png'
+            dataAttr: 'player1'
         },
         {
             name: 'Player 2',
             life: 100,
-            visuel: 'img/player-2.png'
+            dataAttr: 'player2'
         }
     ]
 
     // retourne tableau des cases vides
     let emptyCells = cells.filter(cell => cell.state === 'vide');
 
+    // ajoute les 2 joueurs sur les cases vides au hasard
     players.map(player => selectRandom(emptyCells).player = player);
 
     return cells
@@ -111,17 +124,11 @@ function addPlayers(cells) {
 // Affichage des cases dans le DOM
 function displayCells(arrOfCells) {
     let containerCells = document.querySelector('.cells-container ul');
-
     for (let arrCell of arrOfCells) {
-
         if (arrCell.weapon) {
-            containerCells.insertAdjacentHTML('beforeend', `<li class="cell weapon ${arrCell.state}" data-x="${arrCell.x}" data-y="${arrCell.y}">
-            <img src=${arrCell.weapon.visuel} alt="${arrCell.weapon.name}">
-            </li>`);
+            containerCells.insertAdjacentHTML('beforeend', `<li class="cell weapon" data-weapon=${arrCell.weapon.dataAttr} data-x="${arrCell.x}" data-y="${arrCell.y}"></li>`);
         } else if (arrCell.player) {
-            containerCells.insertAdjacentHTML('beforeend', `<li class="cell ${arrCell.state}" data-x="${arrCell.x}" data-y="${arrCell.y}">
-            <img src=${arrCell.player.visuel} alt="${arrCell.player.name}">
-            </li>`);
+            containerCells.insertAdjacentHTML('beforeend', `<li class="cell player ${arrCell.state}" data-player=${arrCell.player.dataAttr} data-x="${arrCell.x}" data-y="${arrCell.y}"></li>`);
         } else {
             containerCells.insertAdjacentHTML('beforeend', `<li class="cell ${arrCell.state}" data-x="${arrCell.x}" data-y="${arrCell.y}"></li>`);
         }
@@ -132,14 +139,21 @@ function displayCells(arrOfCells) {
 // Création du plateau de jeu
 function createGame() {
     let arrCells = generateAllCells();
-    let cellsWithXY = addCoordonates(arrCells);
-    let cellsWithWeapons = addWeapons(cellsWithXY);
-    let cellsWithPlayers = addPlayers(cellsWithWeapons);
+    addCoordonates(arrCells);
+    addWeapons(arrCells);
+    addPlayers(arrCells);
+    displayCells(arrCells);
 
-    console.log(cellsWithPlayers);
-
-    displayCells(cellsWithWeapons);
+    return arrCells;
 };
 
-
 createGame();
+
+// au click sur une cellule, retourne les coordonées y, x
+$('.cell').on("click", (e) => {
+    let $obj = (e.currentTarget);
+    let dataX = $obj.dataset.x;
+    let dataY = $obj.dataset.y;
+
+    // $('.cell').off("click");
+});
