@@ -24,7 +24,22 @@ html {
         padding: 10px 20px;
         box-sizing: border-box;
         background: rgba($color: #000000, $alpha: 0);
-        transition: .5s ease-in-out;
+        transition: .2s ease-in-out;
+
+        &:after {
+            content: '';
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(black, .2);
+            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+            transition: .2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+            transform: translateX(-100%);
+            overflow: hidden;
+        }
 
         .current-turn {
             opacity: 0;
@@ -32,7 +47,7 @@ html {
             top: 10px;
             right: 10px;
             color: rgb(224, 61, 203);
-            transition: .5s ease-in-out;
+            transition: .3s ;
         }
 
         @keyframes opacity-changing {
@@ -52,6 +67,11 @@ html {
         &.active {
             background: rgba($color: rgb(55, 57, 153), $alpha: 1);
 
+            &:after {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
             .current-turn {
                 opacity: 1;
                 animation: opacity-changing .7s infinite;
@@ -67,6 +87,16 @@ html {
                 transform: scaleX(-1);
             }
 
+            &:after {
+                transform: translateX(100%) scaleX(-1);
+            }
+
+            &.active {
+                &:after {
+                    transform: translateX(0) scaleX(-1);
+                }
+            }
+
             .current-turn {
                 right: auto;
                 left: 10px;
@@ -76,6 +106,7 @@ html {
 
         .wrapper-img {
             height: 100%;
+            z-index: 1;
 
             img {
                 height: 100%;
@@ -87,6 +118,7 @@ html {
             justify-content: center;
             flex-direction: column;
             padding: 0 20px;
+            z-index: 1;
         }
     }
 }
@@ -123,6 +155,7 @@ html {
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: 75%;
+                transition: .3s;
             }
 
             &.can-go {
@@ -151,10 +184,18 @@ html {
 
             &[data-player="player1"] {
                 background-image: url('img/player-1.png');
+
+                &.current-player {
+                    background-color: red;
+                }
             }
 
             &[data-player="player2"] {
                 background-image: url('img/player-2.png');
+                
+                &.current-player {
+                    background-color: red;
+                }
             }
         }
     }

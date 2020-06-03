@@ -31,8 +31,26 @@ html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background: rgba(0, 0, 0, 0);
-  -webkit-transition: .5s ease-in-out;
-  transition: .5s ease-in-out;
+  -webkit-transition: .2s ease-in-out;
+  transition: .2s ease-in-out;
+}
+
+.players-wrapper .player:after {
+  content: '';
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+          clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  -webkit-transition: 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition: 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  overflow: hidden;
 }
 
 .players-wrapper .player .current-turn {
@@ -41,8 +59,8 @@ html {
   top: 10px;
   right: 10px;
   color: #e03dcb;
-  -webkit-transition: .5s ease-in-out;
-  transition: .5s ease-in-out;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 
 @-webkit-keyframes opacity-changing {
@@ -73,6 +91,12 @@ html {
   background: #373999;
 }
 
+.players-wrapper .player.active:after {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+
 .players-wrapper .player.active .current-turn {
   opacity: 1;
   -webkit-animation: opacity-changing .7s infinite;
@@ -91,6 +115,16 @@ html {
           transform: scaleX(-1);
 }
 
+.players-wrapper .player:first-of-type:after {
+  -webkit-transform: translateX(100%) scaleX(-1);
+          transform: translateX(100%) scaleX(-1);
+}
+
+.players-wrapper .player:first-of-type.active:after {
+  -webkit-transform: translateX(0) scaleX(-1);
+          transform: translateX(0) scaleX(-1);
+}
+
 .players-wrapper .player:first-of-type .current-turn {
   right: auto;
   left: 10px;
@@ -99,6 +133,7 @@ html {
 
 .players-wrapper .player .wrapper-img {
   height: 100%;
+  z-index: 1;
 }
 
 .players-wrapper .player .wrapper-img img {
@@ -117,6 +152,7 @@ html {
       -ms-flex-direction: column;
           flex-direction: column;
   padding: 0 20px;
+  z-index: 1;
 }
 
 .cells-container .cells {
@@ -160,6 +196,8 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 75%;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 
 .cells-container .cells .cell.can-go {
@@ -190,7 +228,15 @@ html {
   background-image: url("img/player-1.png");
 }
 
+.cells-container .cells .cell[data-player="player1"].current-player {
+  background-color: red;
+}
+
 .cells-container .cells .cell[data-player="player2"] {
   background-image: url("img/player-2.png");
+}
+
+.cells-container .cells .cell[data-player="player2"].current-player {
+  background-color: red;
 }
 /*# sourceMappingURL=style.css.map */

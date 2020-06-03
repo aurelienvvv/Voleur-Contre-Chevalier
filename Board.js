@@ -18,14 +18,6 @@ class Player {
     }
 };
 
-let playerOne = new Player('Voleur d\'or', 100, 'player1');
-let playerTwo = new Player('Chevalier', 100, 'player2');
-
-
-const arrOfPlayers = [playerOne, playerTwo];
-
-arrOfPlayers.map(player => player.updatePlayerDom(player));
-
 
 // Class Weapon //
 class Weapon {
@@ -36,23 +28,18 @@ class Weapon {
     };
 };
 
-let weapon1 = new Weapon('Poing Américain', 1, 'poing');
-let weapon2 = new Weapon('Baton', 3, 'baton');
-let weapon3 = new Weapon('Lance', 6, 'lance');
-let weapon4 = new Weapon('Epee', 10, 'epee');
-
-const arrOfWeapons = [weapon1, weapon2, weapon3, weapon4];
-
 
 // Class Board //
 class Board {
-    constructor(cells) {
-        let allCells = this.generateAllCells();
-        this.addCoordonates(allCells);
-        this.addWeapons(allCells, arrOfWeapons);
-        this.addPlayers(allCells, arrOfPlayers);
-        this.displayCells(allCells);
-        this.cells = allCells;
+    constructor(arrOfPlayers, arrOfWeapons) {
+        this.allCells = this.generateAllCells();
+        this.addCoordonates(this.allCells);
+        this.players = arrOfPlayers;
+        this.weapons = arrOfWeapons;
+        this.addWeapons(this.allCells, arrOfWeapons);
+        this.addPlayers(this.allCells, arrOfPlayers);
+        this.displayCells(this.allCells);
+        this.cells = this.allCells;
     };
 
     // Création d'une case avec une état
@@ -161,30 +148,24 @@ class Board {
 };
 
 
-function playerTurn() {
-    let randomPlayer = selectRandom(arrOfPlayers);
-    let playerAttr = randomPlayer.dataAttr;
-
-    $(`.players-wrapper .player.${playerAttr}`).addClass('active');
-    return playerAttr;
-};
-
-function playerNextTurn() {
-    playerActive === 'player1' ? playerActive = 'player2' : playerActive = 'player1';
-
-    $(`.players-wrapper .player`).removeClass('active');
-    $(`.players-wrapper .player.${playerActive}`).addClass('active');
-
-    return playerActive;
-};
-
-let playerActive = playerTurn();
-
 // Class Turn
 class Turn {
     constructor() {
-        $(`[data-player=${playerActive}]`).on('click', this.checkCellsAround);
+        this.player = currentPlayer.dataAttr;
+
+        this.displayInfosPlayer()
+
+        $(`[data-player=${this.player}]`).on('click', this.checkCellsAround);
         $(".cell").on('click', this.movePlayer);
+    };
+
+    displayInfosPlayer() {
+        let playerAttr = this.player;
+
+        $(`[data-player]`).removeClass('current-player');
+        $(`.players-wrapper .player`).removeClass('active');
+        $(`.players-wrapper .player.${playerAttr}`).addClass('active');
+        $(`[data-player = ${playerAttr}]`).addClass('current-player');
     };
 
     checkCellsAround(e) {
@@ -203,6 +184,8 @@ class Turn {
         for (let i = dataXMax; i < 10; i++) { $(`[data-x = ${i}]`).removeClass('can-go'); };
         for (let i = 0; i < dataYMin; i++) { $(`[data-y = ${i}]`).removeClass('can-go'); };
         for (let i = dataYMax; i < 10; i++) { $(`[data-y = ${i}]`).removeClass('can-go'); };
+
+        $('.can-go.innacessible').removeClass('can-go');
     };
 
     movePlayer(e) {
@@ -210,18 +193,52 @@ class Turn {
         let dataX = $obj.data('x')
         let dataY = $obj.data('y')
 
+
         if (($obj).hasClass('can-go')) {
             $(`.cell`).removeClass('can-go');
-            $(`[data-player = ${playerActive}]`).removeClass('player').removeAttr('data-player')
-            $(`[data-x = ${dataX}][data-y = ${dataY}]`).attr('data-player', playerActive).addClass('player');
+            $(`[data-player = ${currentPlayer.dataAttr}]`).removeClass('player').removeAttr('data-player').removeClass('current-player');
+            $(`[data-x = ${dataX}][data-y = ${dataY}]`).attr('data-player', currentPlayer.dataAttr).addClass('player');
             $('.cell').off("click");
-            playerNextTurn()
+            // debugger
+            selectPlayer();
             new Turn();
         };
+    };
+};
 
+class Game {
+    constructor() {
+        this.weapon1 = new Weapon('Poing Américain', 1, 'poing');
+        this.weapon2 = new Weapon('Baton', 3, 'baton');
+        this.weapon3 = new Weapon('Lance', 6, 'lance');
+        this.weapon4 = new Weapon('Epee', 10, 'epee');
+        this.arrOfWeapons = [this.weapon1, this.weapon2, this.weapon3, this.weapon4]
+
+        this.playerOne = new Player('Voleur d\'or', 100, 'player1');
+        this.playerTwo = new Player('Chevalier', 100, 'player2');
+        this.arrOfPlayers = [this.playerOne, this.playerTwo];
+
+        this.arrOfPlayers.map(player => player.updatePlayerDom(player));
+
+        new Board(this.arrOfPlayers, this.arrOfWeapons);
     };
 };
 
 
-new Board();
-new Turn()
+
+
+
+
+function selectPlayer() {
+    let player = game.arrOfPlayers.filter(player => currentPlayer !== player);
+    currentPlayer = player[0]
+    return player[0];
+};
+
+let game = new Game();
+
+let currentPlayer = selectRandom(game.arrOfPlayers);
+
+
+
+new Turn();
