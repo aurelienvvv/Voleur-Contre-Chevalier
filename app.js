@@ -1,4 +1,4 @@
-// Global Variable
+// Global variables
 let currentPlayer;
 
 
