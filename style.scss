@@ -46,8 +46,8 @@ html {
             position: absolute;
             top: 10px;
             right: 10px;
-            color: rgb(224, 61, 203);
-            transition: .3s ;
+            color: rgb(251, 124, 255);
+            transition: .3s;
         }
 
         @keyframes opacity-changing {
@@ -92,6 +92,8 @@ html {
             }
 
             &.active {
+                background: rgba($color: rgb(117, 55, 153), $alpha: 1);
+
                 &:after {
                     transform: translateX(0) scaleX(-1);
                 }

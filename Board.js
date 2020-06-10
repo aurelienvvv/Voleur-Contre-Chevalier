@@ -13,7 +13,7 @@ class Board {
     // Création d'une case avec une état
     generateCell() {
         let stateOfCell = ['vide', 'innacessible', 'vide', 'vide', 'vide'];
-        let state = selectRandom(stateOfCell);
+        let state = Utils.selectRandom(stateOfCell);
 
         return {
             state: state,
@@ -63,7 +63,7 @@ class Board {
         let emptyCells = cells.filter(cell => cell.state === 'vide');
 
         // ajoute les armes aux cases vides au hasard
-        weapons.map(weapon => selectRandom(emptyCells).weapon = weapon);
+        weapons.map(weapon => Utils.selectRandom(emptyCells).weapon = weapon);
 
         // vérifie les armes présentes dans l'objet cells
         let weaponsCheck = cells.filter(cell => cell.weapon);
@@ -71,7 +71,7 @@ class Board {
         // si il n'y a pas assez d'armes, réajout des armes dans cells
         if (weaponsCheck.length !== weapons.length) {
             cells.map(cell => delete cell.weapon);
-            weapons.map(weapon => selectRandom(emptyCells).weapon = weapon);
+            weapons.map(weapon => Utils.selectRandom(emptyCells).weapon = weapon);
         };
 
         // retire la clé 'statut' aux cases avec une arme
@@ -86,7 +86,7 @@ class Board {
         let emptyCells = cells.filter(cell => cell.state === 'vide');
 
         // ajoute les 2 joueurs sur les cases vides au hasard
-        players.map(player => selectRandom(emptyCells).player = player);
+        players.map(player => Utils.selectRandom(emptyCells).player = player);
 
         // vérifie les armes présentes dans l'objet cells
         let playersCheck = cells.filter(cell => cell.player);
@@ -94,7 +94,7 @@ class Board {
         // si il n'y a pas assez de joueurs, réajout des joueurs dans cells
         if (playersCheck.length !== players.length) {
             cells.map(cell => delete cell.player);
-            players.map(player => selectRandom(emptyCells).player = player);
+            players.map(player => Utils.selectRandom(emptyCells).player = player);
         };
 
         return cells
