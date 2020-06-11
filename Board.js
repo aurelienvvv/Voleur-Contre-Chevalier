@@ -12,7 +12,7 @@ class Board {
 
     // Création d'une case avec une état
     generateCell() {
-        let stateOfCell = ['vide', 'innacessible', 'vide', 'vide', 'vide'];
+        let stateOfCell = ['vide', 'vide', 'vide', 'vide'];
         let state = Utils.selectRandom(stateOfCell);
 
         return {
@@ -23,10 +23,10 @@ class Board {
     };
 
     // Génération de 100 cases
-    generateAllCells() {
+    generateAllCells(nbOfCells) {
         let arrCells = [];
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < Data.nbOfCells; i++) {
             arrCells.push(this.generateCell());
         };
 

@@ -1,4 +1,5 @@
 let Data = {
     currentPlayer: null,
-    startTurnPosition: null
+    startTurnPosition: null,
+    nbOfCells: 100
 };

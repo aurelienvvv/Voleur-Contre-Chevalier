@@ -1,37 +1,68 @@
 class Turn {
     constructor() {
-        this.player = Data.currentPlayer.dataAttr;
+        this.player = Data.currentPlayer;
+        this.playerPosition = $(`[data-player=${this.player.dataAttr}]`);
+        this.dataX = this.playerPosition.data('x')
+        this.dataY = this.playerPosition.data('y')
+        this.dataXMin = this.dataX - 3;
+        this.dataXMax = this.dataX + 4;
+        this.dataYMin = this.dataY - 3;
+        this.dataYMax = this.dataY + 4;
 
-        this.displayInfosPlayer()
-
-        this.checkCellsAround();
+        this.displayInfosPlayer();
         this.whereCanGo();
         this.checkWalls();
 
-        $(".can-go").on('click', (e) => this.movePlayer(e));
+        $(".can-go").on('click', (e) => {
+            this.$obj = $(e.currentTarget);
+            this.endPlayerDataX = this.$obj.data('x');
+            this.endPlayerDataY = this.$obj.data('y');
+            this.startPlayerDataX = Data.startTurnPosition.data('x');
+            this.startPlayerDataY = Data.startTurnPosition.data('y');
 
+            // met à jour la position du joueur sur la case
+            this.playerMoveUpdateDom();
+
+            // si le joueur se déplace de la gauche vers la droite
+            if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX <= this.endPlayerDataX) {
+                $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
+                this.loopMove(this.startPlayerDataX, this.endPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
+            }
+
+            // si le joueur se déplace de la droite vers la gauche
+            else if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX >= this.endPlayerDataX) {
+                $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
+                this.loopMove(this.endPlayerDataX, this.startPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
+            }
+
+            // si le joueur se déplace de haut en bas
+            else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY <= this.endPlayerDataY) {
+                this.loopMove(this.startPlayerDataY, this.endPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
+            }
+
+            // si le joueur se déplace de bas en haut
+            else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY >= this.endPlayerDataY) {
+                this.loopMove(this.endPlayerDataY, this.startPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
+            };
+
+            // choisi l'autre joueur
+            Utils.selectPlayer();
+
+            // relance un tour
+            new Turn();
+        });
     };
 
     displayInfosPlayer() {
-        this.playerAttr = this.player;
+        // met à jour l'ecran d'affichage du joueur
+        this.playerAttr = this.player.dataAttr;
 
         $(`[data-player]`).removeClass('current-player');
         $(`.players-wrapper .player`).removeClass('active');
         $(`.players-wrapper .player.${this.playerAttr}`).addClass('active');
         $(`[data-player = ${this.playerAttr}]`).addClass('current-player');
-        Utils.startTurnPosition = $('.current-player');
+        Data.startTurnPosition = $('.current-player');
 
-    };
-
-    checkCellsAround() {
-        // variables pour les cellules et le joueur
-        this.$obj = $(`[data-player=${this.player}]`);
-        this.dataX = this.$obj.data('x')
-        this.dataY = this.$obj.data('y')
-        this.dataXMin = this.dataX - 3;
-        this.dataXMax = this.dataX + 4;
-        this.dataYMin = this.dataY - 3;
-        this.dataYMax = this.dataY + 4;
     };
 
     whereCanGo() {
@@ -80,61 +111,24 @@ class Turn {
         })
     }
 
-    movePlayer(e) {
-        this.$obj = $(e.currentTarget);
-        this.endPlayerDataX = this.$obj.data('x');
-        this.endPlayerDataY = this.$obj.data('y');
-        this.startPlayerDataX = Utils.startTurnPosition.data('x');
-        this.startPlayerDataY = Utils.startTurnPosition.data('y');
-
-        this.playerMoveUpdateDom();
-        this.takeWeapon();
-
-        // sélection du joueur pour le prochain tour
-        Utils.selectPlayer();
-
-        // lancement du tour suivant
-        new Turn();
-    };
-
-    addWeaponsToDom(weapon) {
-        if (weapon.length) {
-            Data.currentPlayer.weapon = weapon[0];
-            Data.currentPlayer.updatePlayerDom(Data.currentPlayer);
-        };
-    };
-
-    takeWeapon() {
-        // Si le joueur se déplace de la gauche vers la droite
-        if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX <= this.endPlayerDataX) {
-            this.loopMoveX(this.startPlayerDataX, this.endPlayerDataX, this.endPlayerDataY);
-        }
-    };
-
-    loopMoveX(startLoop, endLoop, dataY) {
+    loopMove(startLoop, endLoop, dataY, incrementAttribute, staticAttribute) {
         for (let i = startLoop; i <= endLoop; i++) {
-            // récupération de l'attribut de l'arme
-            let dataWeapon = $(`[data-x = ${i}][data-y = ${dataY}]`).data('weapon');
-            console.log(dataWeapon);
+            let $currentCell = $(`[${incrementAttribute}=${i}][${staticAttribute}=${dataY}]`);
+            let cellWeapon = $currentCell.data('weapon');
+            let weapon = game.arrOfWeapons.filter(weapon => weapon.dataAttr === cellWeapon);
+            let currentPlayerWeapon = this.player.weapon.dataAttr;
 
-            // récupération de l'instance de l'arme avec l'attribut
-            let weapon = game.arrOfWeapons.filter(weapon => weapon.dataAttr === dataWeapon);
-            console.log(weapon[0]);
 
-            // Si il y a une arme sur son passage on la retire de la case
-            $(`[data-x = ${i}][data-y = ${dataY}]`).removeClass('weapon').removeAttr('data-weapon');
-            console.log($(`[data-x = ${i}][data-y = ${dataY}]`));
+            if (cellWeapon) {
+                $currentCell.removeAttr('data-weapon').removeClass('weapon');
 
-            // Si le joueur a déjà une arme on la place à l'endroit de l'arme récupérée
-            if (dataWeapon && Data.currentPlayer.weapon !== 'Aucune') {
-                this.dataCurrentWeapon = Data.currentPlayer.weapon.dataAttr;
-                $(`[data-x = ${i}][data-y = ${dataY}]`).addClass('weapon').attr('data-weapon', this.dataCurrentWeapon);
-            }
+                $currentCell.attr('data-weapon', currentPlayerWeapon).addClass('weapon');
 
-            // on affiche l'arme sur le DOM et on l'ajoute joueur
-            this.addWeaponsToDom(weapon);
+                this.player.weapon = weapon[0];
+                this.player.updatePlayerDom(this.player);
+            };
         };
-    }
+    };
 
     playerMoveUpdateDom() {
         $(`.cell`).removeClass('can-go');

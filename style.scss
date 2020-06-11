@@ -24,7 +24,7 @@ html {
         padding: 10px 20px;
         box-sizing: border-box;
         background: rgba($color: #000000, $alpha: 0);
-        transition: .2s ease-in-out;
+        // transition: .2s ease-in-out;
 
         &:after {
             content: '';
@@ -157,7 +157,13 @@ html {
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: 75%;
-                transition: .3s;
+                transition: background .3s;
+            }
+
+            &.player {
+                &.to-left {
+                    transform: scaleX(-1);
+                }
             }
 
             &.can-go {

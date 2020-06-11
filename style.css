@@ -31,8 +31,6 @@ html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background: rgba(0, 0, 0, 0);
-  -webkit-transition: .2s ease-in-out;
-  transition: .2s ease-in-out;
 }
 
 .players-wrapper .player:after {
@@ -200,8 +198,13 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 75%;
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: background .3s;
+  transition: background .3s;
+}
+
+.cells-container .cells .cell.player.to-left {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
 }
 
 .cells-container .cells .cell.can-go {
