@@ -1,5 +1,43 @@
 let Data = {
     currentPlayer: null,
     startTurnPosition: null,
-    nbOfCells: 100
+    nbOfCells: 100,
+    nbOfWalls: 20,
+    nbOfWeapons: 6,
+    weaponsValues: [{
+        name: 'Poing Américain',
+        damage: 5,
+        dataAttr: 'poing',
+    },
+    {
+        name: 'Baton',
+        damage: 10,
+        dataAttr: 'baton',
+    },
+    {
+        name: 'Lance',
+        damage: 15,
+        dataAttr: 'lance',
+    },
+    {
+        name: 'Epee',
+        damage: 25,
+        dataAttr: 'epee',
+    },
+    {
+        name: 'Hache',
+        damage: 20,
+        dataAttr: 'hache',
+    },
+    {
+        name: 'Shuriken',
+        damage: 10,
+        dataAttr: 'shuriken',
+    },
+    {
+        name: 'Marteau',
+        damage: 15,
+        dataAttr: 'marteau',
+    },
+    ]
 };

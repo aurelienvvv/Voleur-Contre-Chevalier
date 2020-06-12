@@ -12,7 +12,16 @@ class Board {
 
     // Création d'une case avec une état
     generateCell() {
-        let stateOfCell = ['vide', 'vide', 'vide', 'vide'];
+        let stateOfCell = [];
+
+        for (let i = 0; i < Data.nbOfWalls; i++) {
+            stateOfCell.push('innacessible');
+        }
+
+        for (let i = 0; i < 100 - Data.nbOfWalls; i++) {
+            stateOfCell.push('vide');
+        }
+
         let state = Utils.selectRandom(stateOfCell);
 
         return {

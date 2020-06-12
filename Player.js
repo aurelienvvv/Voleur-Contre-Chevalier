@@ -1,9 +1,10 @@
 class Player {
-    constructor(name, life, dataAttr, weapon) {
+    constructor(name, life, dataAttr, weapon, strategy) {
         this.name = name;
         this.life = life;
         this.dataAttr = dataAttr;
         this.weapon = weapon;
+        this.strategy = strategy;
     };
 
     updatePlayerDom(player) {
@@ -13,6 +14,6 @@ class Player {
 
         if (!player.weapon.name) {
             $(`.${player.dataAttr} .wrapper-infos .weapon`).html(`Arme : Aucune`);
-        }
-    }
+        };
+    };
 };
