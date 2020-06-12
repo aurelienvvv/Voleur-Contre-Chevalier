@@ -19,6 +19,7 @@ class Game {
         $('.win-screen').removeClass('active');
         $('.img-winner').removeClass('player1');
         $('.img-winner').removeClass('player2');
-        $('.winner-win-text').text(``)
+        $('.winner-win-text').text(``);
+        $('body').removeClass('fight-time');
     };
 };

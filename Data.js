@@ -2,8 +2,8 @@ let Data = {
     currentPlayer: null,
     startTurnPosition: null,
     nbOfCells: 100,
-    nbOfWalls: 20,
-    nbOfWeapons: 6,
+    nbOfWalls: 0,
+    nbOfWeapons: 7,
     weaponsValues: [{
         name: 'Poing Américain',
         damage: 5,

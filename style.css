@@ -8,6 +8,61 @@ html {
           box-sizing: border-box;
 }
 
+.fight-time {
+  -webkit-animation: fight-background 2s infinite;
+          animation: fight-background 2s infinite;
+}
+
+.fight-time .cells-container .cells .cell {
+  background-color: transparent;
+}
+
+.fight-time .cells-container .cells .cell.vide {
+  background-color: transparent;
+}
+
+@-webkit-keyframes fight-background {
+  0% {
+    background-color: #0e0e0e;
+  }
+  50% {
+    background-color: black;
+  }
+  55% {
+    background-color: #501515;
+  }
+  60% {
+    background-color: black;
+  }
+  65% {
+    background-color: #501515;
+  }
+  100% {
+    background-color: #0e0e0e;
+  }
+}
+
+@keyframes fight-background {
+  0% {
+    background-color: #0e0e0e;
+  }
+  50% {
+    background-color: black;
+  }
+  55% {
+    background-color: #501515;
+  }
+  60% {
+    background-color: black;
+  }
+  65% {
+    background-color: #501515;
+  }
+  100% {
+    background-color: #0e0e0e;
+  }
+}
+
 .game-container {
   position: relative;
 }
@@ -166,10 +221,6 @@ html {
   background: linear-gradient(0, #101236 0%, #090b24 100%, black 100%);
 }
 
-.players-wrapper .btn-options {
-  z-index: 11;
-}
-
 .players-wrapper .player {
   position: relative;
   display: -webkit-box;
@@ -199,6 +250,17 @@ html {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
   overflow: hidden;
+}
+
+.players-wrapper .player .fight-options {
+  position: absolute;
+  top: -100%;
+  padding: 10px;
+  background-color: yellow;
+}
+
+.players-wrapper .player .fight-options.active {
+  top: 100%;
 }
 
 .players-wrapper .player .current-turn {
@@ -359,10 +421,6 @@ html {
 
 .cells-container .cells .cell.can-go {
   background-color: cyan;
-}
-
-.cells-container .cells .cell.attack-enemy {
-  background-color: orange;
 }
 
 .cells-container .cells .cell[data-weapon="poing"] {
