@@ -1,0 +1,195 @@
+// Style du plateau de jeu + cases et leurs contenus
+.cells-container {
+    display: flex;
+    align-items: center;
+    min-height: 80vh;
+
+    .cells {
+        margin: auto;
+        width: 500px;
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        list-style: none;
+        padding: 0;
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgb(80, 80, 80);
+            box-sizing: border-box;
+
+            &.vide {
+                background-color: $lightgrey;
+            }
+
+            &.innacessible {
+                background-color: $darkgrey;
+            }
+
+            &.weapon,
+            &.player {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 75%;
+                transition: background .3s;
+            }
+
+            @mixin anim-hit($tr1, $tr2, $scaleX, $anim) {
+                animation: $anim .5s;
+                @if ($anim == attack-anim-right) {
+                    @keyframes attack-anim-right {
+                        0% {transform: translateX(0px)  $scaleX;}
+                        50% {transform: $tr1 $scaleX;}
+                        65% {transform: $tr2 $scaleX;}
+                        75% {transform: $tr2 $scaleX;}
+                        100% {transform: translateX(0px) $scaleX;}
+                    }
+                }
+                @else if ($anim == attack-anim-left) {
+                    @keyframes attack-anim-left {
+                        0% {transform: translateX(0px)  $scaleX;}
+                        50% {transform: $tr1 $scaleX;}
+                        65% {transform: $tr2 $scaleX;}
+                        75% {transform: $tr2 $scaleX;}
+                        100% {transform: translateX(0px) $scaleX;}
+                    }
+                }
+                @else if ($anim == attack-anim-top) {
+                    @keyframes attack-anim-top {
+                        0% {transform: translateX(0px)  $scaleX;}
+                        50% {transform: $tr1 $scaleX;}
+                        65% {transform: $tr2 $scaleX;}
+                        75% {transform: $tr2 $scaleX;}
+                        100% {transform: translateX(0px) $scaleX;}
+                    }
+                }
+                @else if ($anim == attack-anim-bottom) {
+                    @keyframes attack-anim-bottom {
+                        0% {transform: translateX(0px)  $scaleX;}
+                        50% {transform: $tr1 $scaleX;}
+                        65% {transform: $tr2 $scaleX;}
+                        75% {transform: $tr2 $scaleX;}
+                        100% {transform: translateX(0px) $scaleX;}
+                    }
+                }
+            }
+
+            &.player {
+                &.to-left {
+                    transform: scaleX(-1);
+                }
+
+                &.protect {
+                    position: relative;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        bottom: 5px;
+                        left: 5px;
+                        height: 20px;
+                        width: 20px;
+                        background-image: url(/img/shield.png);
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: 100%;
+                    }
+                }
+
+                &.attack-now {
+                    &.right-enemy {
+                        @include anim-hit(translateX(-10px), translateX(50px), scaleX(1), attack-anim-right);
+                    }
+
+                    &.left-enemy {
+                        @include anim-hit(translateX(10px), translateX(-50px), scaleX(-1), attack-anim-left);
+                    }
+
+                    &.top-enemy {
+                        @include anim-hit(translateY(10px), translateY(-50px), scaleX(1), attack-anim-top);
+                    }
+
+                    &.bottom-enemy {
+                        @include anim-hit(translateY(-10px), translateY(50px), scaleX(1), attack-anim-bottom);
+                    }
+                }
+            }
+
+            &.can-go {
+                .player1 & {
+                    background-color: $lightviolet;
+                }
+
+                .player2 & {
+                    background-color: $skyblue;
+                }
+            }
+            
+            &[data-weapon="poing"] {
+                background-image: url('img/poing.png');
+                background-color: $color-poing;
+            }
+            
+            &[data-weapon="baton"] {
+                background-image: url('img/baton.png');
+                background-color: $color-baton;
+            }
+            
+            &[data-weapon="lance"] {
+                background-image: url('img/lance.png');
+                background-color: $color-lance;
+            }
+
+            &[data-weapon="epee"] {
+                background-image: url('img/epee.png');
+                background-color: $color-epee;
+            }
+
+            &[data-weapon="shuriken"] {
+                background-image: url('img/shuriken.png');
+                background-color: $color-shuriken;
+            }
+
+            &[data-weapon="hache"] {
+                background-image: url('img/hache.png');
+                background-color: $color-hache;
+            }
+
+            &[data-weapon="marteau"] {
+                background-image: url('img/marteau.png');
+                background-color: $color-marteau;
+            }
+
+            &[data-player="player1"] {
+                background-image: url('img/player-1.png');
+                z-index: 10;
+
+                .fight-time & {
+                    border: 0;
+                }
+
+                &.current-player {
+                    background-color: $color-player-1 !important;
+                    z-index: 1;
+                }
+            }
+
+            &[data-player="player2"] {
+                background-image: url('img/player-2.png');
+                z-index: 10;
+
+                .fight-time & {
+                    border: 0;
+                }
+                
+                &.current-player {
+                    background-color: $color-player-2 !important;
+                    z-index: 1;
+                }
+            }
+        }
+    }
+}

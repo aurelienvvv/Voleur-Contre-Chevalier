@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 body,
 html {
+  font-family: 'VT323', monospace;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   background-color: #0e0e0e;
@@ -8,59 +10,530 @@ html {
           box-sizing: border-box;
 }
 
-.fight-time {
-  -webkit-animation: fight-background 2s infinite;
-          animation: fight-background 2s infinite;
+.cells-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 80vh;
 }
 
-.fight-time .cells-container .cells .cell {
-  background-color: transparent;
+.cells-container .cells {
+  margin: auto;
+  width: 500px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[10];
+      grid-template-columns: repeat(10, 1fr);
+  list-style: none;
+  padding: 0;
 }
 
-.fight-time .cells-container .cells .cell.vide {
-  background-color: transparent;
+.cells-container .cells .cell {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #505050;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-@-webkit-keyframes fight-background {
+.cells-container .cells .cell.vide {
+  background-color: #bebebe;
+}
+
+.cells-container .cells .cell.innacessible {
+  background-color: #3a3a3a;
+}
+
+.cells-container .cells .cell.weapon, .cells-container .cells .cell.player {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 75%;
+  -webkit-transition: background .3s;
+  transition: background .3s;
+}
+
+.cells-container .cells .cell.player.to-left {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+}
+
+.cells-container .cells .cell.player.protect {
+  position: relative;
+}
+
+.cells-container .cells .cell.player.protect:after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  height: 20px;
+  width: 20px;
+  background-image: url(/img/shield.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.cells-container .cells .cell.player.attack-now.right-enemy {
+  -webkit-animation: attack-anim-right 0.5s;
+          animation: attack-anim-right 0.5s;
+}
+
+@-webkit-keyframes attack-anim-right {
   0% {
-    background-color: #0e0e0e;
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
   }
   50% {
-    background-color: black;
-  }
-  55% {
-    background-color: #501515;
-  }
-  60% {
-    background-color: black;
+    -webkit-transform: translateX(-10px) scaleX(1);
+            transform: translateX(-10px) scaleX(1);
   }
   65% {
-    background-color: #501515;
+    -webkit-transform: translateX(50px) scaleX(1);
+            transform: translateX(50px) scaleX(1);
+  }
+  75% {
+    -webkit-transform: translateX(50px) scaleX(1);
+            transform: translateX(50px) scaleX(1);
   }
   100% {
-    background-color: #0e0e0e;
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
   }
 }
 
-@keyframes fight-background {
+@keyframes attack-anim-right {
   0% {
-    background-color: #0e0e0e;
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
   }
   50% {
-    background-color: black;
-  }
-  55% {
-    background-color: #501515;
-  }
-  60% {
-    background-color: black;
+    -webkit-transform: translateX(-10px) scaleX(1);
+            transform: translateX(-10px) scaleX(1);
   }
   65% {
-    background-color: #501515;
+    -webkit-transform: translateX(50px) scaleX(1);
+            transform: translateX(50px) scaleX(1);
+  }
+  75% {
+    -webkit-transform: translateX(50px) scaleX(1);
+            transform: translateX(50px) scaleX(1);
   }
   100% {
-    background-color: #0e0e0e;
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
   }
+}
+
+.cells-container .cells .cell.player.attack-now.left-enemy {
+  -webkit-animation: attack-anim-left 0.5s;
+          animation: attack-anim-left 0.5s;
+}
+
+@-webkit-keyframes attack-anim-left {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(-1);
+            transform: translateX(0px) scaleX(-1);
+  }
+  50% {
+    -webkit-transform: translateX(10px) scaleX(-1);
+            transform: translateX(10px) scaleX(-1);
+  }
+  65% {
+    -webkit-transform: translateX(-50px) scaleX(-1);
+            transform: translateX(-50px) scaleX(-1);
+  }
+  75% {
+    -webkit-transform: translateX(-50px) scaleX(-1);
+            transform: translateX(-50px) scaleX(-1);
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(-1);
+            transform: translateX(0px) scaleX(-1);
+  }
+}
+
+@keyframes attack-anim-left {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(-1);
+            transform: translateX(0px) scaleX(-1);
+  }
+  50% {
+    -webkit-transform: translateX(10px) scaleX(-1);
+            transform: translateX(10px) scaleX(-1);
+  }
+  65% {
+    -webkit-transform: translateX(-50px) scaleX(-1);
+            transform: translateX(-50px) scaleX(-1);
+  }
+  75% {
+    -webkit-transform: translateX(-50px) scaleX(-1);
+            transform: translateX(-50px) scaleX(-1);
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(-1);
+            transform: translateX(0px) scaleX(-1);
+  }
+}
+
+.cells-container .cells .cell.player.attack-now.top-enemy {
+  -webkit-animation: attack-anim-top 0.5s;
+          animation: attack-anim-top 0.5s;
+}
+
+@-webkit-keyframes attack-anim-top {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateY(10px) scaleX(1);
+            transform: translateY(10px) scaleX(1);
+  }
+  65% {
+    -webkit-transform: translateY(-50px) scaleX(1);
+            transform: translateY(-50px) scaleX(1);
+  }
+  75% {
+    -webkit-transform: translateY(-50px) scaleX(1);
+            transform: translateY(-50px) scaleX(1);
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+@keyframes attack-anim-top {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateY(10px) scaleX(1);
+            transform: translateY(10px) scaleX(1);
+  }
+  65% {
+    -webkit-transform: translateY(-50px) scaleX(1);
+            transform: translateY(-50px) scaleX(1);
+  }
+  75% {
+    -webkit-transform: translateY(-50px) scaleX(1);
+            transform: translateY(-50px) scaleX(1);
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+.cells-container .cells .cell.player.attack-now.bottom-enemy {
+  -webkit-animation: attack-anim-bottom 0.5s;
+          animation: attack-anim-bottom 0.5s;
+}
+
+@-webkit-keyframes attack-anim-bottom {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateY(-10px) scaleX(1);
+            transform: translateY(-10px) scaleX(1);
+  }
+  65% {
+    -webkit-transform: translateY(50px) scaleX(1);
+            transform: translateY(50px) scaleX(1);
+  }
+  75% {
+    -webkit-transform: translateY(50px) scaleX(1);
+            transform: translateY(50px) scaleX(1);
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+@keyframes attack-anim-bottom {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateY(-10px) scaleX(1);
+            transform: translateY(-10px) scaleX(1);
+  }
+  65% {
+    -webkit-transform: translateY(50px) scaleX(1);
+            transform: translateY(50px) scaleX(1);
+  }
+  75% {
+    -webkit-transform: translateY(50px) scaleX(1);
+            transform: translateY(50px) scaleX(1);
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+.player1 .cells-container .cells .cell.can-go {
+  background-color: #fca3ff;
+}
+
+.player2 .cells-container .cells .cell.can-go {
+  background-color: #8adeff;
+}
+
+.cells-container .cells .cell[data-weapon="poing"] {
+  background-image: url("img/poing.png");
+  background-color: #72c272;
+}
+
+.cells-container .cells .cell[data-weapon="baton"] {
+  background-image: url("img/baton.png");
+  background-color: #4f75bb;
+}
+
+.cells-container .cells .cell[data-weapon="lance"] {
+  background-image: url("img/lance.png");
+  background-color: #da785a;
+}
+
+.cells-container .cells .cell[data-weapon="epee"] {
+  background-image: url("img/epee.png");
+  background-color: #b346c2;
+}
+
+.cells-container .cells .cell[data-weapon="shuriken"] {
+  background-image: url("img/shuriken.png");
+  background-color: #9ca3ce;
+}
+
+.cells-container .cells .cell[data-weapon="hache"] {
+  background-image: url("img/hache.png");
+  background-color: #afc246;
+}
+
+.cells-container .cells .cell[data-weapon="marteau"] {
+  background-image: url("img/marteau.png");
+  background-color: #c28c46;
+}
+
+.cells-container .cells .cell[data-player="player1"] {
+  background-image: url("img/player-1.png");
+  z-index: 10;
+}
+
+.fight-time .cells-container .cells .cell[data-player="player1"] {
+  border: 0;
+}
+
+.cells-container .cells .cell[data-player="player1"].current-player {
+  background-color: #753799 !important;
+  z-index: 1;
+}
+
+.cells-container .cells .cell[data-player="player2"] {
+  background-image: url("img/player-2.png");
+  z-index: 10;
+}
+
+.fight-time .cells-container .cells .cell[data-player="player2"] {
+  border: 0;
+}
+
+.cells-container .cells .cell[data-player="player2"].current-player {
+  background-color: #373999 !important;
+  z-index: 1;
+}
+
+.players-wrapper {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 80px;
+  font-size: 20px;
+  color: white;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #101236;
+}
+
+.players-wrapper .player {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 10px 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.players-wrapper .player:after {
+  content: '';
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(14, 14, 14, 0.2);
+  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+          clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  -webkit-transition: 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  transition: 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  overflow: hidden;
+}
+
+.players-wrapper .player .fight-options {
+  position: absolute;
+  top: -100%;
+  right: 0;
+  padding: 10px 20px;
+  background-color: #101236;
+}
+
+.players-wrapper .player .fight-options button {
+  font-family: 'VT323', monospace;
+  background-color: transparent;
+  font-size: 18px;
+  color: white;
+  outline: 0;
+}
+
+.players-wrapper .player .fight-options.active {
+  top: 100%;
+}
+
+.players-wrapper .player .current-turn {
+  opacity: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fca3ff;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+@-webkit-keyframes opacity-changing {
+  0% {
+    opacity: .7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .7;
+  }
+}
+
+@keyframes opacity-changing {
+  0% {
+    opacity: .7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .7;
+  }
+}
+
+.players-wrapper .player.active {
+  background: #373999;
+}
+
+.players-wrapper .player.active:after {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+
+.players-wrapper .player.active .current-turn {
+  opacity: 1;
+  -webkit-animation: opacity-changing .7s infinite;
+          animation: opacity-changing .7s infinite;
+}
+
+.players-wrapper .player:first-of-type {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  text-align: right;
+}
+
+.players-wrapper .player:first-of-type .fight-options {
+  right: auto;
+  left: 0;
+  background-color: #361f44;
+}
+
+.players-wrapper .player:first-of-type img {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+}
+
+.players-wrapper .player:first-of-type:after {
+  -webkit-transform: translateX(100%) scaleX(-1);
+          transform: translateX(100%) scaleX(-1);
+}
+
+.players-wrapper .player:first-of-type.active {
+  background: #753799;
+}
+
+.players-wrapper .player:first-of-type.active:after {
+  -webkit-transform: translateX(0) scaleX(-1);
+          transform: translateX(0) scaleX(-1);
+}
+
+.players-wrapper .player:first-of-type .current-turn {
+  right: auto;
+  left: 10px;
+  top: 10px;
+}
+
+.players-wrapper .player .wrapper-img {
+  height: 100%;
+  z-index: 1;
+}
+
+.players-wrapper .player .wrapper-img img {
+  height: 100%;
+}
+
+.players-wrapper .player .wrapper-infos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0 20px;
+  z-index: 1;
 }
 
 .game-container {
@@ -206,271 +679,117 @@ html {
   top: 50%;
 }
 
-.players-wrapper {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 80px;
-  font-size: 20px;
-  color: white;
-  font-family: 'VT323', monospace;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  background: -webkit-gradient(linear, left top, left bottom, from(0), color-stop(0%, #101236), color-stop(100%, #090b24), to(black));
-  background: linear-gradient(0, #101236 0%, #090b24 100%, black 100%);
+.fight-time.player1 {
+  -webkit-animation: fight-background-player 2s infinite;
+          animation: fight-background-player 2s infinite;
 }
 
-.players-wrapper .player {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  padding: 10px 20px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  background: rgba(0, 0, 0, 0);
+.fight-time.player2 {
+  -webkit-animation: fight-background-player-2 2s infinite;
+          animation: fight-background-player-2 2s infinite;
 }
 
-.players-wrapper .player:after {
-  content: '';
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
-  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-          clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-  -webkit-transition: 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  transition: 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  -webkit-transform: translateX(-100%);
-          transform: translateX(-100%);
-  overflow: hidden;
+.fight-time .cells-container .cells .cell {
+  background-color: transparent;
 }
 
-.players-wrapper .player .fight-options {
-  position: absolute;
-  top: -100%;
-  padding: 10px;
-  background-color: yellow;
+.fight-time .cells-container .cells .cell.vide {
+  background-color: transparent;
 }
 
-.players-wrapper .player .fight-options.active {
-  top: 100%;
-}
-
-.players-wrapper .player .current-turn {
-  opacity: 0;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #fb7cff;
-  -webkit-transition: .3s;
-  transition: .3s;
-}
-
-@-webkit-keyframes opacity-changing {
+@-webkit-keyframes fight-background-player {
   0% {
-    opacity: .7;
+    background-color: #0e0e0e;
   }
-  50% {
-    opacity: 1;
+  10% {
+    background-color: #0e0e0e;
+  }
+  15% {
+    background-color: #361f44;
+  }
+  20% {
+    background-color: #0e0e0e;
+  }
+  25% {
+    background-color: #361f44;
+  }
+  35% {
+    background-color: #0e0e0e;
   }
   100% {
-    opacity: .7;
+    background-color: #0e0e0e;
   }
 }
 
-@keyframes opacity-changing {
+@keyframes fight-background-player {
   0% {
-    opacity: .7;
+    background-color: #0e0e0e;
   }
-  50% {
-    opacity: 1;
+  10% {
+    background-color: #0e0e0e;
+  }
+  15% {
+    background-color: #361f44;
+  }
+  20% {
+    background-color: #0e0e0e;
+  }
+  25% {
+    background-color: #361f44;
+  }
+  35% {
+    background-color: #0e0e0e;
   }
   100% {
-    opacity: .7;
+    background-color: #0e0e0e;
   }
 }
 
-.players-wrapper .player.active {
-  background: #373999;
+@-webkit-keyframes fight-background-player-2 {
+  0% {
+    background-color: #0e0e0e;
+  }
+  10% {
+    background-color: #0e0e0e;
+  }
+  15% {
+    background-color: #101236;
+  }
+  20% {
+    background-color: #0e0e0e;
+  }
+  25% {
+    background-color: #101236;
+  }
+  35% {
+    background-color: #0e0e0e;
+  }
+  100% {
+    background-color: #0e0e0e;
+  }
 }
 
-.players-wrapper .player.active:after {
-  opacity: 1;
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
-}
-
-.players-wrapper .player.active .current-turn {
-  opacity: 1;
-  -webkit-animation: opacity-changing .7s infinite;
-          animation: opacity-changing .7s infinite;
-}
-
-.players-wrapper .player:first-of-type {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  text-align: right;
-}
-
-.players-wrapper .player:first-of-type img {
-  -webkit-transform: scaleX(-1);
-          transform: scaleX(-1);
-}
-
-.players-wrapper .player:first-of-type:after {
-  -webkit-transform: translateX(100%) scaleX(-1);
-          transform: translateX(100%) scaleX(-1);
-}
-
-.players-wrapper .player:first-of-type.active {
-  background: #753799;
-}
-
-.players-wrapper .player:first-of-type.active:after {
-  -webkit-transform: translateX(0) scaleX(-1);
-          transform: translateX(0) scaleX(-1);
-}
-
-.players-wrapper .player:first-of-type .current-turn {
-  right: auto;
-  left: 10px;
-  top: 10px;
-}
-
-.players-wrapper .player .wrapper-img {
-  height: 100%;
-  z-index: 1;
-}
-
-.players-wrapper .player .wrapper-img img {
-  height: 100%;
-}
-
-.players-wrapper .player .wrapper-infos {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  padding: 0 20px;
-  z-index: 1;
-}
-
-.cells-container .cells {
-  margin: auto;
-  width: 500px;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[10];
-      grid-template-columns: repeat(10, 1fr);
-  list-style: none;
-  padding: 0;
-}
-
-.cells-container .cells .cell {
-  width: 50px;
-  height: 50px;
-  background-color: lightgrey;
-  border: 1px solid #505050;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.cells-container .cells .cell.vide {
-  background-color: #bebebe;
-}
-
-.cells-container .cells .cell.innacessible {
-  background-color: #3a3a3a;
-}
-
-.cells-container .cells .cell.weapon, .cells-container .cells .cell.player {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 75%;
-  -webkit-transition: background .3s;
-  transition: background .3s;
-}
-
-.cells-container .cells .cell.player.to-left {
-  -webkit-transform: scaleX(-1);
-          transform: scaleX(-1);
-}
-
-.cells-container .cells .cell.can-go {
-  background-color: cyan;
-}
-
-.cells-container .cells .cell[data-weapon="poing"] {
-  background-image: url("img/poing.png");
-  background-color: #72c272;
-}
-
-.cells-container .cells .cell[data-weapon="baton"] {
-  background-image: url("img/baton.png");
-  background-color: #4f75bb;
-}
-
-.cells-container .cells .cell[data-weapon="lance"] {
-  background-image: url("img/lance.png");
-  background-color: #da785a;
-}
-
-.cells-container .cells .cell[data-weapon="epee"] {
-  background-image: url("img/epee.png");
-  background-color: #b346c2;
-}
-
-.cells-container .cells .cell[data-weapon="shuriken"] {
-  background-image: url("img/shuriken.png");
-  background-color: #9ca3ce;
-}
-
-.cells-container .cells .cell[data-weapon="hache"] {
-  background-image: url("img/hache.png");
-  background-color: #afc246;
-}
-
-.cells-container .cells .cell[data-weapon="marteau"] {
-  background-image: url("img/marteau.png");
-  background-color: #c28c46;
-}
-
-.cells-container .cells .cell[data-player="player1"] {
-  background-image: url("img/player-1.png");
-}
-
-.cells-container .cells .cell[data-player="player1"].current-player {
-  background-color: blue;
-}
-
-.cells-container .cells .cell[data-player="player2"] {
-  background-image: url("img/player-2.png");
-}
-
-.cells-container .cells .cell[data-player="player2"].current-player {
-  background-color: blue;
+@keyframes fight-background-player-2 {
+  0% {
+    background-color: #0e0e0e;
+  }
+  10% {
+    background-color: #0e0e0e;
+  }
+  15% {
+    background-color: #101236;
+  }
+  20% {
+    background-color: #0e0e0e;
+  }
+  25% {
+    background-color: #101236;
+  }
+  35% {
+    background-color: #0e0e0e;
+  }
+  100% {
+    background-color: #0e0e0e;
+  }
 }
 /*# sourceMappingURL=style.css.map */

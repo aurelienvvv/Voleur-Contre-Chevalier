@@ -7,8 +7,11 @@ class Utils {
     };
 
     static selectPlayer() {
+        $(`body`).removeClass(`player2`);
+        $(`body`).removeClass(`player1`);
         let player = game.arrOfPlayers.filter(player => Data.currentPlayer !== player);
-        Data.currentPlayer = player[0]
+        Data.currentPlayer = player[0];
+
         return player[0];
     };
 }

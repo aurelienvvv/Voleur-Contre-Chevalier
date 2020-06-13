@@ -1,0 +1,119 @@
+.game-container {
+    position: relative;
+
+    .win-screen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: absolute;
+        top: -500%;
+        left: 50%;
+        height: 450px;
+        width: 600px;
+        padding: 50px;
+        transform: translateX(-50%) translateY(-50%);
+        text-align: center;
+        background-color: rgb(24, 24, 24);
+        z-index: 100;
+        transition: 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+        .title {
+            color: white;
+            font-family: 'VT323', monospace;
+            font-size: 30px;
+            margin-bottom: 50px;
+        }
+
+        .img-winner {
+            height: 100px;
+            width: 100px;
+            background-position: center;
+            background-size: cover;
+            margin-bottom: 50px;
+            transition: .5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+            animation: move-winner 2s infinite;
+
+            &.player1 {
+                background-image: url('img/player-1.png');
+            }
+            
+            &.player2 {
+                background-image: url('img/player-2.png');
+            }
+        }
+
+        @keyframes move-winner {
+            0% {transform: translateY(0) scaleX(0);}
+            30% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            50% {transform: translateY(0);}
+            70% {transform: translateY(0) scaleX(0);}
+            80% {transform: translateY(-30px) scaleX(-1);}
+            100% {transform: translateY(0) scaleX(0);}
+
+        }
+
+        .reload-btn {
+            cursor: pointer;
+            font-family: 'VT323', monospace;
+            font-size: 25px;
+            padding: 10px 35px;
+            background-color: rgb(55, 57, 153);
+            border: 0;
+            outline: 0;
+            color: white;
+            transition: .3s;
+            
+            &:hover {
+                background-color: rgb(91, 92, 156);
+            }
+        }
+
+        &.active {
+            top: 50%;
+        }
+    }
+}
+
+
+.fight-time {
+    &.player1 {
+        animation: fight-background-player 2s infinite;
+    }
+    
+    &.player2 {
+        animation: fight-background-player-2 2s infinite;
+    }
+
+    .cells-container { 
+        .cells {
+            .cell {
+                background-color: transparent;
+                &.vide {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+@keyframes fight-background-player {
+    0% {background-color: $black;}
+    10% {background-color: $black;}
+    15% {background-color: $darkviolet;}
+    20% {background-color: $black;}
+    25% {background-color: $darkviolet;}
+    35% {background-color: $black;}
+    100% {background-color: $black;}
+}
+
+@keyframes fight-background-player-2 {
+    0% {background-color: $black;}
+    10% {background-color: $black;}
+    15% {background-color: $darkblue;}
+    20% {background-color: $black;}
+    25% {background-color: $darkblue;}
+    35% {background-color: $black;}
+    100% {background-color: $black;}
+}

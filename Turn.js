@@ -32,49 +32,46 @@ class Turn {
         this.checkEnemyForFight('y', this.dataY - 1, 'x', this.dataX);
         this.checkEnemyForFight('y', this.dataY + 1, 'x', this.dataX);
 
-        if ($('.attack-enemy').length) {
+        // si les joueurs en sont au duel, affichage des options d'attaque
+        if ($('.fight-time').length) {
             $('.cell').removeClass('can-go');
             $(`.players-wrapper .${this.player.dataAttr} .fight-options`).addClass('active');
         };
 
-        $(`.players-wrapper .${this.player.dataAttr} .btn-attack`).unbind().on('click', () => {
-            console.log($(`.players-wrapper .${this.player.dataAttr} .btn-attack`));
-            this.enemy = game.arrOfPlayers.filter(player => this.player.dataAttr !== player.dataAttr);
-            $(`.players-wrapper .fight-options`).removeClass('active');
+        // au click sur le bouton de défense
+        $(`.players-wrapper .${this.player.dataAttr} .btn-defense`).unbind().on('click', () => {
+            this.openFightOptions();
 
-            console.log("click cclick");
+            // ajoute true à protect du joueur en cours
+            this.player.protect = true;
+
+            $(`[data-player = ${this.player.dataAttr}]`).addClass('protect');
+
+            this.fightCondition();
+        });
+
+        // au click sur le bouton d'attaque
+        $(`.players-wrapper .${this.player.dataAttr} .btn-attack`).unbind().on('click', () => {
+            this.openFightOptions();
+
+            $('.cell').removeClass('attack-now');
 
             // dégat selon l'arme possédée
             if (this.currentPlayerWeapon.damage) {
-                this.enemy[0].life -= this.currentPlayerWeapon.damage;
+                this.enemy[0].protect ? this.enemy[0].life -= this.currentPlayerWeapon.damage / 2 : this.enemy[0].life -= this.currentPlayerWeapon.damage;
             } else {
-                this.enemy[0].life -= 2;
+                this.enemy[0].protect ? this.enemy[0].life -= 1 : this.enemy[0].life -= 2;
             }
 
-            if (this.enemy[0].life <= 0) {
-                // si l'ennemi n'a plus de vie, affiche l'écran de fin
-                $('.win-screen').addClass('active');
-                $('.img-winner').addClass(this.player.dataAttr);
-                $('.winner-win-text').text(`${this.player.name}`)
+            $('.current-player').addClass('attack-now');
+            $(`[data-player = ${this.enemy[0].dataAttr}]`).removeClass('protect');
 
-            } else {
-                // sinon met à jour les classes du DOM
-                $(`[data-player = ${this.player.dataAttr}]`).removeClass('current-player');
-
-                // met les données du tableau du joueur
-                this.enemy[0].updatePlayerDom(this.enemy[0]);
-
-
-                // sélectionne l'autre joueur
-                Utils.selectPlayer();
-
-                console.log(this.player);
-
-                // relance un tour
-                new Turn();
-            };
+            // retire true à protect de l'ennemie
+            this.enemy[0].protect = false;
+            this.fightCondition();
         });
 
+        // au click sur une case accessible
         $(".can-go").on('click', (e) => {
             this.$obj = $(e.currentTarget);
             this.endPlayerDataX = this.$obj.data('x');
@@ -124,6 +121,7 @@ class Turn {
         $(`.players-wrapper .player`).removeClass('active');
         $(`.players-wrapper .player.${this.playerAttr}`).addClass('active');
         $(`[data-player = ${this.playerAttr}]`).addClass('current-player');
+        $(`body`).addClass(`${this.playerAttr}`);
         Data.startTurnPosition = $('.current-player');
     };
 
@@ -207,11 +205,50 @@ class Turn {
             $('body').addClass('fight-time');
 
             if (positionEnemy === this.dataX - 1) {
+                $(`[data-player=${this.player.dataAttr}]`).addClass('left-enemy');
                 $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
+                console.log('ennemi à gauche');
+
+            } else if (positionEnemy === this.dataY - 1) {
+                $(`[data-player=${this.player.dataAttr}]`).addClass('top-enemy');
+                console.log('ennemi en haut');
+
+            } else if (positionEnemy === this.dataY + 1) {
+                $(`[data-player=${this.player.dataAttr}]`).addClass('bottom-enemy');
+                console.log('ennemi en bas');
 
             } else if (positionEnemy === this.dataX + 1) {
-                $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
-            }
+                $(`[data-player=${this.player.dataAttr}]`).addClass('right-enemy');
+                console.log('ennemi à droite');
+            };
         };
     };
+
+    fightCondition() {
+        if (this.enemy[0].life <= 0) {
+            // si l'ennemi n'a plus de vie, affiche l'écran de fin
+            $('.win-screen').addClass('active');
+            $('.img-winner').addClass(this.player.dataAttr);
+            $('.winner-win-text').text(`${this.player.name}`)
+
+        } else {
+            // sinon met à jour les classes du DOM
+            $(`[data-player = ${this.player.dataAttr}]`).removeClass('current-player');
+
+            // met les données du tableau du joueur
+            this.enemy[0].updatePlayerDom(this.enemy[0]);
+
+
+            // sélectionne l'autre joueur
+            Utils.selectPlayer();
+
+            // relance un tour
+            new Turn();
+        };
+    };
+
+    openFightOptions() {
+        this.enemy = game.arrOfPlayers.filter(player => this.player.dataAttr !== player.dataAttr);
+        $(`.players-wrapper .fight-options`).removeClass('active');
+    }
 };

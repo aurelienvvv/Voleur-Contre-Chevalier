@@ -1,10 +1,10 @@
 class Player {
-    constructor(name, life, dataAttr, weapon, strategy) {
+    constructor(name, life, dataAttr, weapon, protect) {
         this.name = name;
         this.life = life;
         this.dataAttr = dataAttr;
         this.weapon = weapon;
-        this.strategy = strategy;
+        this.protect = protect;
     };
 
     updatePlayerDom(player) {
