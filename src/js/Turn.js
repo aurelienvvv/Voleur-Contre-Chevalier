@@ -196,7 +196,6 @@ class Turn {
 
                 // met à jour l'arme et le tableau du joueur
                 this.player.weapon = weapon[0];
-                console.log(this.player.weapon.dataAttr);
                 $(`[data-x = ${this.endPlayerDataX}][data-y = ${this.endPlayerDataY}]`).attr('data-player-weapon', this.player.weapon.dataAttr);
                 this.player.updatePlayerDom(this.player);
             }

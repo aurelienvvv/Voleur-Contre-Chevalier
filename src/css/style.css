@@ -80,7 +80,7 @@ html {
   right: 5px;
   height: 20px;
   width: 20px;
-  background-image: url(/img/shield.png);
+  background-image: url(../img/shield.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
@@ -307,27 +307,31 @@ html {
 }
 
 .cells-container .cells .cell.player[data-player-weapon][data-player-weapon='marteau']:after {
-  background-image: url(/img/marteau.png);
+  background-image: url(../img/marteau.png);
 }
 
 .cells-container .cells .cell.player[data-player-weapon][data-player-weapon='poing']:after {
-  background-image: url(/img/poing.png);
+  background-image: url(../img/poing.png);
+}
+
+.cells-container .cells .cell.player[data-player-weapon][data-player-weapon='baton']:after {
+  background-image: url(../img/baton.png);
 }
 
 .cells-container .cells .cell.player[data-player-weapon][data-player-weapon='shuriken']:after {
-  background-image: url(/img/shuriken.png);
+  background-image: url(../img/shuriken.png);
 }
 
 .cells-container .cells .cell.player[data-player-weapon][data-player-weapon='lance']:after {
-  background-image: url(/img/lance.png);
+  background-image: url(../img/lance.png);
 }
 
 .cells-container .cells .cell.player[data-player-weapon][data-player-weapon='hache']:after {
-  background-image: url(/img/hache.png);
+  background-image: url(../img/hache.png);
 }
 
 .cells-container .cells .cell.player[data-player-weapon][data-player-weapon='epee']:after {
-  background-image: url(/img/epee.png);
+  background-image: url(../img/epee.png);
 }
 
 .player1 .cells-container .cells .cell.can-go {
@@ -339,42 +343,42 @@ html {
 }
 
 .cells-container .cells .cell[data-weapon="poing"] {
-  background-image: url("img/poing.png");
+  background-image: url("../img/poing.png");
   background-color: #72c272;
 }
 
 .cells-container .cells .cell[data-weapon="baton"] {
-  background-image: url("img/baton.png");
+  background-image: url("../img/baton.png");
   background-color: #4f75bb;
 }
 
 .cells-container .cells .cell[data-weapon="lance"] {
-  background-image: url("img/lance.png");
+  background-image: url("../img/lance.png");
   background-color: #da785a;
 }
 
 .cells-container .cells .cell[data-weapon="epee"] {
-  background-image: url("img/epee.png");
+  background-image: url("../img/epee.png");
   background-color: #b346c2;
 }
 
 .cells-container .cells .cell[data-weapon="shuriken"] {
-  background-image: url("img/shuriken.png");
+  background-image: url("../img/shuriken.png");
   background-color: #9ca3ce;
 }
 
 .cells-container .cells .cell[data-weapon="hache"] {
-  background-image: url("img/hache.png");
+  background-image: url("../img/hache.png");
   background-color: #afc246;
 }
 
 .cells-container .cells .cell[data-weapon="marteau"] {
-  background-image: url("img/marteau.png");
+  background-image: url("../img/marteau.png");
   background-color: #c28c46;
 }
 
 .cells-container .cells .cell[data-player="player1"] {
-  background-image: url("img/player-1.png");
+  background-image: url("../img/player-1.png");
   z-index: 10;
 }
 
@@ -388,7 +392,7 @@ html {
 }
 
 .cells-container .cells .cell[data-player="player2"] {
-  background-image: url("img/player-2.png");
+  background-image: url("../img/player-2.png");
   z-index: 10;
 }
 
