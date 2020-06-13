@@ -94,10 +94,25 @@ class Board {
         // retourne tableau des cases vides
         let emptyCells = cells.filter(cell => cell.state === 'vide');
 
-        // ajoute les 2 joueurs sur les cases vides au hasard
-        players.map(player => Utils.selectRandom(emptyCells).player = player);
+        // défini une zone en haut et une zone en bas pour l'apparition des joueurs
+        for (let cell of cells) {
+            if (cell.y < 2) {
+                cell.generatePlayer = players[0].dataAttr;
+            }
+            else if (cell.y > 7) {
+                cell.generatePlayer = players[1].dataAttr;
+            }
+        }
 
-        // vérifie les armes présentes dans l'objet cells
+        // selectionne un index au hasard pour l'apparition des joueurs
+        let randomNumber = Utils.selectRandom([0, 1]);
+
+        // place chaque joueur dans la partie qui lui est destinée
+        Utils.selectRandom(emptyCells.filter(cell => cell.generatePlayer == players[0].dataAttr)).player = players[randomNumber];
+        Utils.selectRandom(emptyCells.filter(cell => cell.generatePlayer == players[1].dataAttr)).player = players[randomNumber == 1 ? 0 : 1];
+
+
+        // vérifie les joueurs présentes dans l'objet cells
         let playersCheck = cells.filter(cell => cell.player);
 
         // si il n'y a pas assez de joueurs, réajout des joueurs dans cells

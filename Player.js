@@ -8,9 +8,10 @@ class Player {
     };
 
     updatePlayerDom(player) {
-        $(`.${player.dataAttr} .wrapper-infos .name`).html(`${player.name}`);
-        $(`.${player.dataAttr} .wrapper-infos .life`).html(`Vie : ${player.life} %`);
-        $(`.${player.dataAttr} .wrapper-infos .weapon`).html(`Arme : ${player.weapon.name}`);
+        $(`.players-wrapper .${player.dataAttr} .wrapper-infos .name`).html(`${player.name}`);
+        $(`.players-wrapper .${player.dataAttr} .wrapper-infos .life`).html(`Vie : ${player.life} %`);
+        $(`.players-wrapper .${player.dataAttr} .wrapper-infos .weapon`).html(`Arme : ${player.weapon.name}`);
+
 
         if (!player.weapon.name) {
             $(`.${player.dataAttr} .wrapper-infos .weapon`).html(`Arme : Aucune`);

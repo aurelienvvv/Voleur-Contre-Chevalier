@@ -85,11 +85,11 @@
                 &.protect {
                     position: relative;
 
-                    &:after {
+                    &:before {
                         content: '';
                         position: absolute;
                         bottom: 5px;
-                        left: 5px;
+                        right: 5px;
                         height: 20px;
                         width: 20px;
                         background-image: url(/img/shield.png);
@@ -114,6 +114,57 @@
 
                     &.bottom-enemy {
                         @include anim-hit(translateY(-10px), translateY(50px), scaleX(1), attack-anim-bottom);
+                    }
+                }
+
+                &[data-player-weapon] {
+                    position: relative;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        bottom: 5px;
+                        left: 5px;
+                        height: 20px;
+                        width: 20px;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: 100%;
+                    }
+
+                    &[data-player-weapon='marteau'] {
+                        &:after {
+                            background-image: url(/img/marteau.png);
+                        }
+                    }
+                    &[data-player-weapon='poing'] {
+                        &:after {
+                            background-image: url(/img/poing.png);
+                        }
+                    }
+
+                    &[data-player-weapon='shuriken'] {
+                        &:after {
+                            background-image: url(/img/shuriken.png);
+                        }
+                    }
+
+                    &[data-player-weapon='lance'] {
+                        &:after {
+                            background-image: url(/img/lance.png);
+                        }
+                    }
+
+                    &[data-player-weapon='hache'] {
+                        &:after {
+                            background-image: url(/img/hache.png);
+                        }
+                    }
+
+                    &[data-player-weapon='epee'] {
+                        &:after {
+                            background-image: url(/img/epee.png);
+                        }
                     }
                 }
             }

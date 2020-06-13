@@ -14,4 +14,4 @@ class Utils {
 
         return player[0];
     };
-}
+};

@@ -12,6 +12,7 @@ class Turn {
         this.dataYMin = this.dataY - 3;
         this.dataYMax = this.dataY + 4;
 
+        // met à jour dom des joueurs
         this.displayInfosPlayer();
 
         // ajoute les classes can-go aux axes x et y
@@ -22,6 +23,7 @@ class Turn {
         this.loopCanGo(this.dataXMax, 10, 'data-x');
         this.loopCanGo(0, this.dataYMin, 'data-y');
         this.loopCanGo(this.dataYMax, 10, 'data-y');
+
 
         // empêche de traverser les murs
         this.checkWalls();
@@ -41,10 +43,10 @@ class Turn {
         // au click sur le bouton de défense
         $(`.players-wrapper .${this.player.dataAttr} .btn-defense`).unbind().on('click', () => {
             this.openFightOptions();
+            $('.cell').removeClass('attack-now');
 
             // ajoute true à protect du joueur en cours
             this.player.protect = true;
-
             $(`[data-player = ${this.player.dataAttr}]`).addClass('protect');
 
             this.fightCondition();
@@ -53,7 +55,6 @@ class Turn {
         // au click sur le bouton d'attaque
         $(`.players-wrapper .${this.player.dataAttr} .btn-attack`).unbind().on('click', () => {
             this.openFightOptions();
-
             $('.cell').removeClass('attack-now');
 
             // dégat selon l'arme possédée
@@ -63,8 +64,10 @@ class Turn {
                 this.enemy[0].protect ? this.enemy[0].life -= 1 : this.enemy[0].life -= 2;
             }
 
-            $('.current-player').addClass('attack-now');
             $(`[data-player = ${this.enemy[0].dataAttr}]`).removeClass('protect');
+
+            // classe qui ajoute une animation visuelle
+            $('.current-player').addClass('attack-now');
 
             // retire true à protect de l'ennemie
             this.enemy[0].protect = false;
@@ -173,28 +176,43 @@ class Turn {
         })
     };
 
-    loopMove(startLoop, endLoop, dataY, incrementAttribute, staticAttribute) {
+    loopMove(startLoop, endLoop, dataYX, incrementAttribute, staticAttribute) {
         for (let i = startLoop; i <= endLoop; i++) {
-            let $currentCell = $(`[${incrementAttribute}=${i}][${staticAttribute}=${dataY}]`);
-            let cellWeapon = $currentCell.data('weapon');
+            let $currentCell = $(`[${incrementAttribute}=${i}][${staticAttribute}=${dataYX}]`);
+            let cellWeapon = $currentCell.attr('data-weapon');
             let weapon = game.arrOfWeapons.filter(weapon => weapon.dataAttr === cellWeapon);
 
+            // quand un joueur passe sur une arme
             if (cellWeapon) {
-                $currentCell.removeAttr('data-weapon').removeClass('weapon');
+                // si il a déjà une arme : la remplace par celle qu'il a
+                if (this.player.weapon !== 'Aucune') {
+                    $currentCell.addClass('weapon');
+                    $currentCell.attr('data-weapon', this.player.weapon.dataAttr).removeClass('vide');
 
-                $currentCell.attr('data-weapon', this.currentPlayerWeapon.dataAttr).addClass('weapon');
+                    // sinon récupère l'arme
+                } else {
+                    $currentCell.removeAttr('data-weapon').removeClass('weapon').addClass('vide');
+                }
 
+                // met à jour l'arme et le tableau du joueur
                 this.player.weapon = weapon[0];
+                console.log(this.player.weapon.dataAttr);
+                $(`[data-x = ${this.endPlayerDataX}][data-y = ${this.endPlayerDataY}]`).attr('data-player-weapon', this.player.weapon.dataAttr);
                 this.player.updatePlayerDom(this.player);
-            };
+            }
         };
     };
 
     playerMoveUpdateDom() {
         $(`.cell`).removeClass('can-go');
         $(`.cell`).removeClass('attack-enemy');
-        $(`[data-player = ${Data.currentPlayer.dataAttr}]`).removeClass('player').removeAttr('data-player').removeClass('current-player');
+        $(`[data-player = ${Data.currentPlayer.dataAttr}]`).removeClass(`player to-left`).removeAttr('data-player data-player-weapon').removeClass('current-player');
         $(`[data-x = ${this.endPlayerDataX}][data-y = ${this.endPlayerDataY}]`).attr('data-player', Data.currentPlayer.dataAttr).addClass('player');
+
+        if (`${this.player.weapon}`) {
+            $(`[data-x = ${this.endPlayerDataX}][data-y = ${this.endPlayerDataY}]`).attr('data-player-weapon', this.player.weapon.dataAttr);
+        }
+
         $('.cell').off("click");
     };
 
@@ -204,23 +222,20 @@ class Turn {
             $(`[data-${attrEnemy} = ${positionEnemy}][data-${attr} = ${position}]`).addClass('attack-enemy');
             $('body').addClass('fight-time');
 
-            if (positionEnemy === this.dataX - 1) {
+            // detecte la position de l'ennemi et ajoute une classe correspondante
+            if (attrEnemy === "y" && positionEnemy === this.dataY - 1) {
+                $(`[data-player=${this.player.dataAttr}]`).addClass('top-enemy');
+
+            } else if (attrEnemy === "y" && positionEnemy === this.dataY + 1) {
+                $(`[data-player=${this.player.dataAttr}]`).addClass('bottom-enemy');
+
+            } else if (attrEnemy === "x" && positionEnemy === this.dataX + 1) {
+                $(`[data-player=${this.player.dataAttr}]`).addClass('right-enemy');
+
+            } else if (attrEnemy === "x" && positionEnemy === this.dataX - 1) {
                 $(`[data-player=${this.player.dataAttr}]`).addClass('left-enemy');
                 $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
-                console.log('ennemi à gauche');
-
-            } else if (positionEnemy === this.dataY - 1) {
-                $(`[data-player=${this.player.dataAttr}]`).addClass('top-enemy');
-                console.log('ennemi en haut');
-
-            } else if (positionEnemy === this.dataY + 1) {
-                $(`[data-player=${this.player.dataAttr}]`).addClass('bottom-enemy');
-                console.log('ennemi en bas');
-
-            } else if (positionEnemy === this.dataX + 1) {
-                $(`[data-player=${this.player.dataAttr}]`).addClass('right-enemy');
-                console.log('ennemi à droite');
-            };
+            }
         };
     };
 

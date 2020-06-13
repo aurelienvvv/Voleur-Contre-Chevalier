@@ -73,11 +73,11 @@ html {
   position: relative;
 }
 
-.cells-container .cells .cell.player.protect:after {
+.cells-container .cells .cell.player.protect:before {
   content: '';
   position: absolute;
   bottom: 5px;
-  left: 5px;
+  right: 5px;
   height: 20px;
   width: 20px;
   background-image: url(/img/shield.png);
@@ -288,6 +288,46 @@ html {
     -webkit-transform: translateX(0px) scaleX(1);
             transform: translateX(0px) scaleX(1);
   }
+}
+
+.cells-container .cells .cell.player[data-player-weapon] {
+  position: relative;
+}
+
+.cells-container .cells .cell.player[data-player-weapon]:after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.cells-container .cells .cell.player[data-player-weapon][data-player-weapon='marteau']:after {
+  background-image: url(/img/marteau.png);
+}
+
+.cells-container .cells .cell.player[data-player-weapon][data-player-weapon='poing']:after {
+  background-image: url(/img/poing.png);
+}
+
+.cells-container .cells .cell.player[data-player-weapon][data-player-weapon='shuriken']:after {
+  background-image: url(/img/shuriken.png);
+}
+
+.cells-container .cells .cell.player[data-player-weapon][data-player-weapon='lance']:after {
+  background-image: url(/img/lance.png);
+}
+
+.cells-container .cells .cell.player[data-player-weapon][data-player-weapon='hache']:after {
+  background-image: url(/img/hache.png);
+}
+
+.cells-container .cells .cell.player[data-player-weapon][data-player-weapon='epee']:after {
+  background-image: url(/img/epee.png);
 }
 
 .player1 .cells-container .cells .cell.can-go {
