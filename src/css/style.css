@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Metal+Mania&family=VT323&family=Contrail+One&display=swap");
 body,
 html {
   font-family: 'VT323', monospace;
@@ -582,6 +582,7 @@ html {
 
 .game-container {
   position: relative;
+  min-height: 100vh;
 }
 
 .game-container .win-screen {
@@ -601,9 +602,8 @@ html {
   position: absolute;
   top: -500%;
   left: 50%;
-  height: 450px;
-  width: 600px;
-  padding: 50px;
+  height: 100%;
+  width: 100%;
   -webkit-transform: translateX(-50%) translateY(-50%);
           transform: translateX(-50%) translateY(-50%);
   text-align: center;
@@ -613,11 +613,35 @@ html {
   transition: 1s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
+.game-container .win-screen:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+          clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  z-index: -1;
+}
+
 .game-container .win-screen .title {
   color: white;
-  font-family: 'VT323', monospace;
   font-size: 30px;
   margin-bottom: 50px;
+}
+
+.game-container .win-screen .title .winner-win-text {
+  display: block;
+  font-family: 'Contrail One', cursive;
+  text-transform: uppercase;
+  text-shadow: 0px 5px 1px #fca3ff;
+  font-size: 70px;
+}
+
+.player2 .game-container .win-screen .title .winner-win-text {
+  text-shadow: 0px 5px 1px #8adeff;
 }
 
 .game-container .win-screen .img-winner {
@@ -633,17 +657,17 @@ html {
 }
 
 .game-container .win-screen .img-winner.player1 {
-  background-image: url("img/player-1.png");
+  background-image: url("../img/player-1.png");
 }
 
 .game-container .win-screen .img-winner.player2 {
-  background-image: url("img/player-2.png");
+  background-image: url("../img/player-2.png");
 }
 
 @-webkit-keyframes move-winner {
   0% {
-    -webkit-transform: translateY(0) scaleX(0);
-            transform: translateY(0) scaleX(0);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
   30% {
     -webkit-transform: translateY(0);
@@ -653,28 +677,32 @@ html {
     -webkit-transform: translateY(-30px);
             transform: translateY(-30px);
   }
-  50% {
+  45% {
     -webkit-transform: translateY(0);
             transform: translateY(0);
   }
   70% {
-    -webkit-transform: translateY(0) scaleX(0);
-            transform: translateY(0) scaleX(0);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
   80% {
-    -webkit-transform: translateY(-30px) scaleX(-1);
-            transform: translateY(-30px) scaleX(-1);
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  85% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
   }
   100% {
-    -webkit-transform: translateY(0) scaleX(0);
-            transform: translateY(0) scaleX(0);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
 @keyframes move-winner {
   0% {
-    -webkit-transform: translateY(0) scaleX(0);
-            transform: translateY(0) scaleX(0);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
   30% {
     -webkit-transform: translateY(0);
@@ -684,21 +712,25 @@ html {
     -webkit-transform: translateY(-30px);
             transform: translateY(-30px);
   }
-  50% {
+  45% {
     -webkit-transform: translateY(0);
             transform: translateY(0);
   }
   70% {
-    -webkit-transform: translateY(0) scaleX(0);
-            transform: translateY(0) scaleX(0);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
   80% {
-    -webkit-transform: translateY(-30px) scaleX(-1);
-            transform: translateY(-30px) scaleX(-1);
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  85% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
   }
   100% {
-    -webkit-transform: translateY(0) scaleX(0);
-            transform: translateY(0) scaleX(0);
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
   }
 }
 
@@ -713,10 +745,34 @@ html {
   color: white;
   -webkit-transition: .3s;
   transition: .3s;
+  -webkit-box-shadow: 4px 4px 0 #fca3ff;
+          box-shadow: 4px 4px 0 #fca3ff;
+}
+
+.player2 .game-container .win-screen .reload-btn {
+  -webkit-box-shadow: 4px 4px 0 #8adeff;
+          box-shadow: 4px 4px 0 #8adeff;
 }
 
 .game-container .win-screen .reload-btn:hover {
   background-color: #5b5c9c;
+  -webkit-box-shadow: 2px 2px 0 #fca3ff;
+          box-shadow: 2px 2px 0 #fca3ff;
+}
+
+.player2 .game-container .win-screen .reload-btn:hover {
+  -webkit-box-shadow: 2px 2px 0 #8adeff;
+          box-shadow: 2px 2px 0 #8adeff;
+}
+
+.game-container .win-screen .reload-btn:focus {
+  -webkit-box-shadow: 0 0 0 #fca3ff;
+          box-shadow: 0 0 0 #fca3ff;
+}
+
+.player2 .game-container .win-screen .reload-btn:focus {
+  -webkit-box-shadow: 0 0 0 #8adeff;
+          box-shadow: 0 0 0 #8adeff;
 }
 
 .game-container .win-screen.active {

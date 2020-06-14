@@ -34,7 +34,7 @@ class Turn {
         this.checkEnemyForFight('y', this.dataY - 1, 'x', this.dataX);
         this.checkEnemyForFight('y', this.dataY + 1, 'x', this.dataX);
 
-        // si les joueurs en sont au duel, affichage des options d'attaque
+        // si duel : affichage des options d'attaque
         if ($('.fight-time').length) {
             $('.cell').removeClass('can-go');
             $(`.players-wrapper .${this.player.dataAttr} .fight-options`).addClass('active');
@@ -81,6 +81,7 @@ class Turn {
             this.endPlayerDataY = this.$obj.data('y');
             this.startPlayerDataX = Data.startTurnPosition.data('x');
             this.startPlayerDataY = Data.startTurnPosition.data('y');
+            this.startOrientation;
 
             // met à jour la position du joueur sur la case
             this.playerMoveUpdateDom();
@@ -89,22 +90,26 @@ class Turn {
             // si le joueur se déplace de la gauche vers la droite
             if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX <= this.endPlayerDataX) {
                 $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
+                this.startOrientation = true;
                 this.loopMove(this.startPlayerDataX, this.endPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
             }
 
             // si le joueur se déplace de la droite vers la gauche
             else if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX >= this.endPlayerDataX) {
                 $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
+                this.startOrientation = false;
                 this.loopMove(this.endPlayerDataX, this.startPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
             }
 
             // si le joueur se déplace de haut en bas
             else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY <= this.endPlayerDataY) {
+                this.startOrientation = true;
                 this.loopMove(this.startPlayerDataY, this.endPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
             }
 
             // si le joueur se déplace de bas en haut
             else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY >= this.endPlayerDataY) {
+                this.startOrientation = false;
                 this.loopMove(this.endPlayerDataY, this.startPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
             };
 
@@ -176,29 +181,39 @@ class Turn {
         })
     };
 
-    loopMove(startLoop, endLoop, dataYX, incrementAttribute, staticAttribute) {
+    loopMove(startLoop, endLoop, staticDataYX, incrementAttribute, staticAttribute) {
         for (let i = startLoop; i <= endLoop; i++) {
-            let $currentCell = $(`[${incrementAttribute}=${i}][${staticAttribute}=${dataYX}]`);
+            let $currentCell = $(`[${incrementAttribute}=${i}][${staticAttribute}=${staticDataYX}]`);
             let cellWeapon = $currentCell.attr('data-weapon');
             let weapon = game.arrOfWeapons.filter(weapon => weapon.dataAttr === cellWeapon);
+            let canTakeWeapon = true;
 
             // quand un joueur passe sur une arme
             if (cellWeapon) {
-                // si il a déjà une arme : la remplace par celle qu'il a
+                // quand un joueur arrive sur une case avec une arme, rien ne se passe
+                // permet d'empecher que le joueur pose une arme en arrivant sur une case et la reprenne en partant
                 if (this.player.weapon !== 'Aucune') {
-                    $currentCell.addClass('weapon');
-                    $currentCell.attr('data-weapon', this.player.weapon.dataAttr).removeClass('vide');
-
-                    // sinon récupère l'arme
-                } else {
-                    $currentCell.removeAttr('data-weapon').removeClass('weapon').addClass('vide');
+                    if (($currentCell).hasClass('weapon player')) {
+                        canTakeWeapon = false;
+                    }
                 }
 
-                // met à jour l'arme et le tableau du joueur
-                this.player.weapon = weapon[0];
-                $(`[data-x = ${this.endPlayerDataX}][data-y = ${this.endPlayerDataY}]`).attr('data-player-weapon', this.player.weapon.dataAttr);
-                this.player.updatePlayerDom(this.player);
-            }
+                if (canTakeWeapon) {
+                    // si il a déjà une arme : la remplace par celle qu'il a
+                    if (this.player.weapon !== 'Aucune') {
+                        $currentCell.addClass('weapon');
+                        $currentCell.attr('data-weapon', this.player.weapon.dataAttr).removeClass('vide');
+                        // sinon récupère l'arme
+                    } else {
+                        $currentCell.removeAttr('data-weapon').removeClass('weapon').addClass('vide');
+                    }
+
+                    // met à jour l'arme et le tableau du joueur
+                    this.player.weapon = weapon[0];
+                    $(`[data-x = ${this.endPlayerDataX}][data-y = ${this.endPlayerDataY}]`).attr('data-player-weapon', this.player.weapon.dataAttr);
+                    this.player.updatePlayerDom(this.player);
+                };
+            };
         };
     };
 
@@ -230,6 +245,7 @@ class Turn {
 
             } else if (attrEnemy === "x" && positionEnemy === this.dataX + 1) {
                 $(`[data-player=${this.player.dataAttr}]`).addClass('right-enemy');
+                $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
 
             } else if (attrEnemy === "x" && positionEnemy === this.dataX - 1) {
                 $(`[data-player=${this.player.dataAttr}]`).addClass('left-enemy');
