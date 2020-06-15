@@ -44,7 +44,8 @@ html {
 }
 
 .cells-container .cells .cell.innacessible {
-  background-color: #3a3a3a;
+  background-image: url(../img/floor.jpg);
+  background-size: contain;
 }
 
 .cells-container .cells .cell.weapon, .cells-container .cells .cell.player {

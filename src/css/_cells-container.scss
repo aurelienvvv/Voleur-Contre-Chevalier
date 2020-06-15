@@ -23,7 +23,8 @@
             }
 
             &.innacessible {
-                background-color: $darkgrey;
+                background-image: url(../img/floor.jpg);
+                background-size: contain;
             }
 
             &.weapon,

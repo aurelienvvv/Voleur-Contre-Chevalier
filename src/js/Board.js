@@ -6,8 +6,10 @@ class Board {
         this.weapons = arrOfWeapons;
         this.addWeapons(this.allCells, arrOfWeapons);
         this.addPlayers(this.allCells, arrOfPlayers);
+        this.playersNoWalls();
         this.displayCells(this.allCells);
         this.cells = this.allCells;
+
     };
 
     // Création d'une case avec une état
@@ -32,7 +34,7 @@ class Board {
     };
 
     // Génération de 100 cases
-    generateAllCells(nbOfCells) {
+    generateAllCells() {
         let arrCells = [];
 
         for (let i = 0; i < Data.nbOfCells; i++) {
@@ -94,6 +96,7 @@ class Board {
         // retourne tableau des cases vides
         let emptyCells = cells.filter(cell => cell.state === 'vide');
 
+
         // défini une zone en haut et une zone en bas pour l'apparition des joueurs
         for (let cell of cells) {
             if (cell.y < 2) {
@@ -111,6 +114,8 @@ class Board {
         Utils.selectRandom(emptyCells.filter(cell => cell.generatePlayer == players[0].dataAttr)).player = players[randomNumber];
         Utils.selectRandom(emptyCells.filter(cell => cell.generatePlayer == players[1].dataAttr)).player = players[randomNumber == 1 ? 0 : 1];
 
+        // supprime la propriété innutile par la suite
+        cells.map(cell => delete cell.generatePlayer)
 
         // vérifie les joueurs présentes dans l'objet cells
         let playersCheck = cells.filter(cell => cell.player);
@@ -135,6 +140,23 @@ class Board {
             } else {
                 containerCells.insertAdjacentHTML('beforeend', `<li class="cell ${cell.state}" data-x="${cell.x}" data-y="${cell.y}"></li>`);
             };
+        };
+    };
+
+    playersNoWalls() {
+        let playersCell = this.allCells.filter(cell => cell.player);
+        let cellsWithNoWalls = [];
+
+        for (let playerCell of playersCell) {
+            // ajoute au tableau les cellules en haut, bas, gauche et droite des joueurs
+            let findXRight = cellsWithNoWalls.push(this.allCells.filter(cell => cell.x === playerCell.x + 1 && cell.y === playerCell.y)[0]);
+            let findXLeft = cellsWithNoWalls.push(this.allCells.filter(cell => cell.x === playerCell.x - 1 && cell.y === playerCell.y)[0]);
+            let findYBottom = cellsWithNoWalls.push(this.allCells.filter(cell => cell.y === playerCell.y + 1 && cell.x === playerCell.x)[0]);
+            let findYTop = cellsWithNoWalls.push(this.allCells.filter(cell => cell.y === playerCell.y - 1 && cell.x === playerCell.x)[0]);
+
+            // filtre les cellules présentes et leur met leur state à vide
+            let filterCells = cellsWithNoWalls.filter(cell => cell !== undefined);
+            let mapNoWalls = filterCells.map(cell => cell.state = "vide");
         };
     };
 };
