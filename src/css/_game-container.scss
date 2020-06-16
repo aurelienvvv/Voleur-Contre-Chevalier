@@ -66,18 +66,6 @@
             }
         }
 
-        @keyframes move-winner {
-            0% {transform: translateY(0);}
-            30% {transform: translateY(0);}
-            40% {transform: translateY(-30px);}
-            45% {transform: translateY(0);}
-            70% {transform: translateY(0);}
-            80% {transform: translateY(-30px);}
-            85% {transform: translateY(0px);}
-            100% {transform: translateY(0);}
-
-        }
-
         .reload-btn {
             cursor: pointer;
             font-family: 'VT323', monospace;
@@ -116,8 +104,115 @@
             top: 50%;
         }
     }
-}
 
+    .start-screen {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: absolute;
+        top: -200%;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgb(24, 24, 24);
+        z-index: 100;
+        transition: 1s  ease-in-out;
+        transition-delay: .3s;
+        overflow: hidden;
+
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(black, .2);
+            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+            z-index: -1;
+        }
+
+        &.active {
+            top: 0;
+
+            .players {
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .title {
+                transform: translateY(0);
+            }
+
+            .start-btn {
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            font-family: 'Contrail One', cursive;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            color: $white;
+            font-size: 95px;
+            animation: title-shadow 1s infinite;
+            text-align: center;
+            line-height: 1;
+            transform: translateY(-200%);
+            transition: .5s ease-in-out;
+            transition-delay: .2s;
+        }
+
+        @keyframes title-shadow {
+            0% {text-shadow: 0px 5px 1px $lightviolet;}
+            40% {text-shadow: 0px 5px 1px $skyblue;}
+            80% {text-shadow: 0px 5px 1px $lightviolet;}
+            100% {text-shadow: 0px 5px 1px $skyblue;}
+        }
+
+        .start-btn {
+            transition: .3s ease-in-out;
+            transform: translateY(100%);
+        }
+
+
+        .players {
+            display: flex;
+            position: absolute;
+            margin-bottom: 30px;
+            width: 800px;
+            top: -100%;
+            justify-content: space-between;
+            transition: .7s ease-in-out;
+
+            .player {
+                img {
+                    height: 140px;
+                    animation : player-jump 2s infinite;
+                    animation-delay: 1.5s;
+                }
+
+                &:last-child {
+                    transform: scaleX(-1);
+                    animation : player-jump-2 2s infinite;
+                    animation-delay: 1s;
+                }
+            }
+        }
+
+        .weapon-decoration {
+            position: absolute;
+            top: 0;
+            height: 80px;
+            width: 80px;
+            background-image: url('/src/img/epee.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            animation: weapons-rain-2 2s infinite;
+        }
+    }
+}
 
 .fight-time {
     &.player1 {
@@ -140,22 +235,3 @@
     }
 }
 
-@keyframes fight-background-player {
-    0% {background-color: $black;}
-    10% {background-color: $black;}
-    15% {background-color: $darkviolet;}
-    20% {background-color: $black;}
-    25% {background-color: $darkviolet;}
-    35% {background-color: $black;}
-    100% {background-color: $black;}
-}
-
-@keyframes fight-background-player-2 {
-    0% {background-color: $black;}
-    10% {background-color: $black;}
-    15% {background-color: $darkblue;}
-    20% {background-color: $black;}
-    25% {background-color: $darkblue;}
-    35% {background-color: $black;}
-    100% {background-color: $black;}
-}

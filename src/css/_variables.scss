@@ -21,3 +21,92 @@ $color-marteau: rgb(194, 140, 70);
 $color-options: $darkgrey;
 $color-player-1: $violet;
 $color-player-2: $blue;
+
+
+// ANIMATIONS //
+
+@keyframes move-winner {
+    0% {transform: translateY(0);}
+    30% {transform: translateY(0);}
+    40% {transform: translateY(-30px);}
+    45% {transform: translateY(0);}
+    70% {transform: translateY(0);}
+    80% {transform: translateY(-30px);}
+    85% {transform: translateY(0px);}
+    100% {transform: translateY(0);}
+
+}
+
+@keyframes player-jump {
+    0% {transform: translateY(0);}
+    5% {transform: translateY(0);}
+    10% {transform: translateY(-50px);}
+    15% {transform: translateY(0);}
+    60% {transform: translateY(0);}
+    75% {transform: translateY(0);}
+    80% {transform: translateY(-50px);}
+    85% {transform: translateY(0);}
+    100% {transform: translateY(0);}
+}
+
+@keyframes player-jump-2 {
+    0% {transform: translateY(0) scaleX(-1);}
+    5% {transform: translateY(0) scaleX(-1);}
+    10% {transform: translateY(-50px) scaleX(-1);}
+    15% {transform: translateY(0) scaleX(-1);}
+    60% {transform: translateY(0) scaleX(-1);}
+    75% {transform: translateY(0) scaleX(-1);}
+    80% {transform: translateY(-50px) scaleX(-1);}
+    85% {transform: translateY(0) scaleX(-1);}
+    100% {transform: translateY(0) scaleX(-1);}
+}
+
+@keyframes fight-background-player {
+    0% {background-color: $black;}
+    10% {background-color: $black;}
+    15% {background-color: $darkviolet;}
+    20% {background-color: $black;}
+    25% {background-color: $darkviolet;}
+    35% {background-color: $black;}
+    100% {background-color: $black;}
+}
+
+@keyframes fight-background-player-2 {
+    0% {background-color: $black;}
+    10% {background-color: $black;}
+    15% {background-color: $darkblue;}
+    20% {background-color: $black;}
+    25% {background-color: $darkblue;}
+    35% {background-color: $black;}
+    100% {background-color: $black;}
+}
+
+@keyframes weapons-rain {
+    0% {
+        opacity: 0;
+        top: 0;
+        left: 70%;
+    }
+    20% {opacity: 1;}
+    70% {opacity: 1;}
+    100% {
+        transform: rotate(360deg);
+        top: 110%;
+        left: 10%;
+    }
+}
+
+@keyframes weapons-rain-2 {
+    0% {
+        opacity: 0;
+        top: 0;
+        left: 20%;
+    }
+    20% {opacity: 1;}
+    70% {opacity: 1;}
+    100% {
+        transform: rotate(360deg);
+        top: 110%;
+        left: 80%;
+    }
+}

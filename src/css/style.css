@@ -1,4 +1,405 @@
 @import url("https://fonts.googleapis.com/css2?family=Metal+Mania&family=VT323&family=Contrail+One&display=swap");
+@-webkit-keyframes move-winner {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  30% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  45% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  70% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  80% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  85% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+@keyframes move-winner {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  30% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  40% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  45% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  70% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  80% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  85% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes player-jump {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  5% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  10% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  15% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  60% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  75% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  80% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  85% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes player-jump {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  5% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  10% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  15% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  60% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  75% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  80% {
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+  85% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes player-jump-2 {
+  0% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  5% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  10% {
+    -webkit-transform: translateY(-50px) scaleX(-1);
+            transform: translateY(-50px) scaleX(-1);
+  }
+  15% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  60% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  75% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  80% {
+    -webkit-transform: translateY(-50px) scaleX(-1);
+            transform: translateY(-50px) scaleX(-1);
+  }
+  85% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  100% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+}
+
+@keyframes player-jump-2 {
+  0% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  5% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  10% {
+    -webkit-transform: translateY(-50px) scaleX(-1);
+            transform: translateY(-50px) scaleX(-1);
+  }
+  15% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  60% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  75% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  80% {
+    -webkit-transform: translateY(-50px) scaleX(-1);
+            transform: translateY(-50px) scaleX(-1);
+  }
+  85% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+  100% {
+    -webkit-transform: translateY(0) scaleX(-1);
+            transform: translateY(0) scaleX(-1);
+  }
+}
+
+@-webkit-keyframes fight-background-player {
+  0% {
+    background-color: #0e0e0e;
+  }
+  10% {
+    background-color: #0e0e0e;
+  }
+  15% {
+    background-color: #361f44;
+  }
+  20% {
+    background-color: #0e0e0e;
+  }
+  25% {
+    background-color: #361f44;
+  }
+  35% {
+    background-color: #0e0e0e;
+  }
+  100% {
+    background-color: #0e0e0e;
+  }
+}
+
+@keyframes fight-background-player {
+  0% {
+    background-color: #0e0e0e;
+  }
+  10% {
+    background-color: #0e0e0e;
+  }
+  15% {
+    background-color: #361f44;
+  }
+  20% {
+    background-color: #0e0e0e;
+  }
+  25% {
+    background-color: #361f44;
+  }
+  35% {
+    background-color: #0e0e0e;
+  }
+  100% {
+    background-color: #0e0e0e;
+  }
+}
+
+@-webkit-keyframes fight-background-player-2 {
+  0% {
+    background-color: #0e0e0e;
+  }
+  10% {
+    background-color: #0e0e0e;
+  }
+  15% {
+    background-color: #101236;
+  }
+  20% {
+    background-color: #0e0e0e;
+  }
+  25% {
+    background-color: #101236;
+  }
+  35% {
+    background-color: #0e0e0e;
+  }
+  100% {
+    background-color: #0e0e0e;
+  }
+}
+
+@keyframes fight-background-player-2 {
+  0% {
+    background-color: #0e0e0e;
+  }
+  10% {
+    background-color: #0e0e0e;
+  }
+  15% {
+    background-color: #101236;
+  }
+  20% {
+    background-color: #0e0e0e;
+  }
+  25% {
+    background-color: #101236;
+  }
+  35% {
+    background-color: #0e0e0e;
+  }
+  100% {
+    background-color: #0e0e0e;
+  }
+}
+
+@-webkit-keyframes weapons-rain {
+  0% {
+    opacity: 0;
+    top: 0;
+    left: 70%;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    top: 110%;
+    left: 10%;
+  }
+}
+
+@keyframes weapons-rain {
+  0% {
+    opacity: 0;
+    top: 0;
+    left: 70%;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    top: 110%;
+    left: 10%;
+  }
+}
+
+@-webkit-keyframes weapons-rain-2 {
+  0% {
+    opacity: 0;
+    top: 0;
+    left: 20%;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    top: 110%;
+    left: 80%;
+  }
+}
+
+@keyframes weapons-rain-2 {
+  0% {
+    opacity: 0;
+    top: 0;
+    left: 20%;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    top: 110%;
+    left: 80%;
+  }
+}
+
 body,
 html {
   font-family: 'VT323', monospace;
@@ -8,6 +409,33 @@ html {
   background-color: #0e0e0e;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+.btn-custom {
+  cursor: pointer;
+  font-family: 'VT323', monospace;
+  font-size: 25px;
+  padding: 10px 35px;
+  background-color: #373999;
+  border: 0;
+  outline: 0;
+  color: white;
+  -webkit-transition: .3s;
+  transition: .3s;
+  -webkit-box-shadow: 4px 4px 0 #fca3ff;
+          box-shadow: 4px 4px 0 #fca3ff;
+  z-index: 1000;
+}
+
+.btn-custom:hover {
+  background-color: #5b5c9c;
+  -webkit-box-shadow: 2px 2px 0 #fca3ff;
+          box-shadow: 2px 2px 0 #fca3ff;
+}
+
+.btn-custom:focus {
+  -webkit-box-shadow: 0 0 0 #fca3ff;
+          box-shadow: 0 0 0 #fca3ff;
 }
 
 .cells-container {
@@ -665,76 +1093,6 @@ html {
   background-image: url("../img/player-2.png");
 }
 
-@-webkit-keyframes move-winner {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  30% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  40% {
-    -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-  }
-  45% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  70% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  80% {
-    -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-  }
-  85% {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-}
-
-@keyframes move-winner {
-  0% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  30% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  40% {
-    -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-  }
-  45% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  70% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-  80% {
-    -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-  }
-  85% {
-    -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-  }
-}
-
 .game-container .win-screen .reload-btn {
   cursor: pointer;
   font-family: 'VT323', monospace;
@@ -780,6 +1138,166 @@ html {
   top: 50%;
 }
 
+.game-container .start-screen {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: -200%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #181818;
+  z-index: 100;
+  -webkit-transition: 1s  ease-in-out;
+  transition: 1s  ease-in-out;
+  -webkit-transition-delay: .3s;
+          transition-delay: .3s;
+  overflow: hidden;
+}
+
+.game-container .start-screen:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+          clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+  z-index: -1;
+}
+
+.game-container .start-screen.active {
+  top: 0;
+}
+
+.game-container .start-screen.active .players {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.game-container .start-screen.active .title {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.game-container .start-screen.active .start-btn {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.game-container .start-screen .title {
+  font-family: 'Contrail One', cursive;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  color: white;
+  font-size: 95px;
+  -webkit-animation: title-shadow 1s infinite;
+          animation: title-shadow 1s infinite;
+  text-align: center;
+  line-height: 1;
+  -webkit-transform: translateY(-200%);
+          transform: translateY(-200%);
+  -webkit-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  -webkit-transition-delay: .2s;
+          transition-delay: .2s;
+}
+
+@-webkit-keyframes title-shadow {
+  0% {
+    text-shadow: 0px 5px 1px #fca3ff;
+  }
+  40% {
+    text-shadow: 0px 5px 1px #8adeff;
+  }
+  80% {
+    text-shadow: 0px 5px 1px #fca3ff;
+  }
+  100% {
+    text-shadow: 0px 5px 1px #8adeff;
+  }
+}
+
+@keyframes title-shadow {
+  0% {
+    text-shadow: 0px 5px 1px #fca3ff;
+  }
+  40% {
+    text-shadow: 0px 5px 1px #8adeff;
+  }
+  80% {
+    text-shadow: 0px 5px 1px #fca3ff;
+  }
+  100% {
+    text-shadow: 0px 5px 1px #8adeff;
+  }
+}
+
+.game-container .start-screen .start-btn {
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+}
+
+.game-container .start-screen .players {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  margin-bottom: 30px;
+  width: 800px;
+  top: -100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-transition: .7s ease-in-out;
+  transition: .7s ease-in-out;
+}
+
+.game-container .start-screen .players .player img {
+  height: 140px;
+  -webkit-animation: player-jump 2s infinite;
+          animation: player-jump 2s infinite;
+  -webkit-animation-delay: 1.5s;
+          animation-delay: 1.5s;
+}
+
+.game-container .start-screen .players .player:last-child {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+  -webkit-animation: player-jump-2 2s infinite;
+          animation: player-jump-2 2s infinite;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.game-container .start-screen .weapon-decoration {
+  position: absolute;
+  top: 0;
+  height: 80px;
+  width: 80px;
+  background-image: url("/src/img/epee.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-animation: weapons-rain-2 2s infinite;
+          animation: weapons-rain-2 2s infinite;
+}
+
 .fight-time.player1 {
   -webkit-animation: fight-background-player 2s infinite;
           animation: fight-background-player 2s infinite;
@@ -796,101 +1314,5 @@ html {
 
 .fight-time .cells-container .cells .cell.vide {
   background-color: transparent;
-}
-
-@-webkit-keyframes fight-background-player {
-  0% {
-    background-color: #0e0e0e;
-  }
-  10% {
-    background-color: #0e0e0e;
-  }
-  15% {
-    background-color: #361f44;
-  }
-  20% {
-    background-color: #0e0e0e;
-  }
-  25% {
-    background-color: #361f44;
-  }
-  35% {
-    background-color: #0e0e0e;
-  }
-  100% {
-    background-color: #0e0e0e;
-  }
-}
-
-@keyframes fight-background-player {
-  0% {
-    background-color: #0e0e0e;
-  }
-  10% {
-    background-color: #0e0e0e;
-  }
-  15% {
-    background-color: #361f44;
-  }
-  20% {
-    background-color: #0e0e0e;
-  }
-  25% {
-    background-color: #361f44;
-  }
-  35% {
-    background-color: #0e0e0e;
-  }
-  100% {
-    background-color: #0e0e0e;
-  }
-}
-
-@-webkit-keyframes fight-background-player-2 {
-  0% {
-    background-color: #0e0e0e;
-  }
-  10% {
-    background-color: #0e0e0e;
-  }
-  15% {
-    background-color: #101236;
-  }
-  20% {
-    background-color: #0e0e0e;
-  }
-  25% {
-    background-color: #101236;
-  }
-  35% {
-    background-color: #0e0e0e;
-  }
-  100% {
-    background-color: #0e0e0e;
-  }
-}
-
-@keyframes fight-background-player-2 {
-  0% {
-    background-color: #0e0e0e;
-  }
-  10% {
-    background-color: #0e0e0e;
-  }
-  15% {
-    background-color: #101236;
-  }
-  20% {
-    background-color: #0e0e0e;
-  }
-  25% {
-    background-color: #101236;
-  }
-  35% {
-    background-color: #0e0e0e;
-  }
-  100% {
-    background-color: #0e0e0e;
-  }
 }
 /*# sourceMappingURL=style.css.map */
