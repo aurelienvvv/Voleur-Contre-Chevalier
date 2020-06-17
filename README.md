@@ -1,1 +1,3 @@
-# Jeu JS pour Le projet 6 de Openclassrooms
+# Voleur Contre Chevalier
+
+Jeu en js https://aurelienvvv.github.io/Voleur-Contre-Chevalier/
