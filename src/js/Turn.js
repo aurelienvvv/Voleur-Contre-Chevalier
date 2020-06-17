@@ -1,5 +1,6 @@
 class Turn {
     constructor() {
+        // variables liées au joueur en cours
         this.player = Data.currentPlayer;
         this.playerPosition = $(`[data-player=${this.player.dataAttr}]`);
         this.currentPlayerWeapon = this.player.weapon;
@@ -34,45 +35,6 @@ class Turn {
         this.checkEnemyForFight('y', this.dataY - 1, 'x', this.dataX);
         this.checkEnemyForFight('y', this.dataY + 1, 'x', this.dataX);
 
-        // si duel : affichage des options d'attaque
-        if ($('.fight-time').length) {
-            $('.cell').removeClass('can-go');
-            $(`.players-wrapper .${this.player.dataAttr} .fight-options`).addClass('active');
-        };
-
-        // au click sur le bouton de défense
-        $(`.players-wrapper .${this.player.dataAttr} .btn-defense`).unbind().on('click', () => {
-            this.openFightOptions();
-            $('.cell').removeClass('attack-now');
-
-            // ajoute true à protect du joueur en cours
-            this.player.protect = true;
-            $(`[data-player = ${this.player.dataAttr}]`).addClass('protect');
-
-            this.fightCondition();
-        });
-
-        // au click sur le bouton d'attaque
-        $(`.players-wrapper .${this.player.dataAttr} .btn-attack`).unbind().on('click', () => {
-            this.openFightOptions();
-            $('.cell').removeClass('attack-now');
-
-            // dégat selon l'arme possédée
-            if (this.currentPlayerWeapon.damage) {
-                this.enemy[0].protect ? this.enemy[0].life -= this.currentPlayerWeapon.damage / 2 : this.enemy[0].life -= this.currentPlayerWeapon.damage;
-            } else {
-                this.enemy[0].protect ? this.enemy[0].life -= 1 : this.enemy[0].life -= 2;
-            }
-
-            $(`[data-player = ${this.enemy[0].dataAttr}]`).removeClass('protect');
-
-            // classe qui ajoute une animation visuelle
-            $('.current-player').addClass('attack-now');
-
-            // retire true à protect de l'ennemie
-            this.enemy[0].protect = false;
-            this.fightCondition();
-        });
 
         // au click sur une case accessible
         $(".can-go").on('click', (e) => {
@@ -118,6 +80,48 @@ class Turn {
 
             // relance un tour
             new Turn();
+        });
+
+
+        // COMBAT //
+        // si duel : affichage des options d'attaque
+        this.isFight();
+
+        // au click sur le bouton de défense
+        $(`.players-wrapper .${this.player.dataAttr} .btn-defense`).unbind().on('click', () => {
+            this.openFightOptions();
+            $('.cell').removeClass('attack-now');
+            $('.cell').removeClass('attacked');
+
+            // ajoute true à protect du joueur en cours
+            this.player.protect = true;
+            $(`[data-player = ${this.player.dataAttr}]`).addClass('protect');
+
+            this.fightCondition();
+        });
+
+        // au click sur le bouton d'attaque
+        $(`.players-wrapper .${this.player.dataAttr} .btn-attack`).unbind().on('click', () => {
+            this.openFightOptions();
+            $('.cell').removeClass('attack-now');
+            $('.cell').removeClass('attacked');
+
+            // dégat selon l'arme possédée
+            if (this.currentPlayerWeapon.damage) {
+                this.enemy[0].protect ? this.enemy[0].life -= this.currentPlayerWeapon.damage / 2 : this.enemy[0].life -= this.currentPlayerWeapon.damage;
+            } else {
+                this.enemy[0].protect ? this.enemy[0].life -= 1 : this.enemy[0].life -= 2;
+            }
+
+            $(`[data-player = ${this.enemy[0].dataAttr}]`).removeClass('protect');
+
+            // classe qui ajoute une animation visuelle
+            $('.current-player').addClass('attack-now');
+            $(`[data-player = ${this.enemy[0].dataAttr}]`).addClass('attacked');
+
+            // retire true à protect de l'ennemie
+            this.enemy[0].protect = false;
+            this.fightCondition();
         });
     };
 
@@ -280,5 +284,12 @@ class Turn {
     openFightOptions() {
         this.enemy = game.arrOfPlayers.filter(player => this.player.dataAttr !== player.dataAttr);
         $(`.players-wrapper .fight-options`).removeClass('active');
+    };
+
+    isFight() {
+        if ($('.fight-time').length) {
+            $('.cell').removeClass('can-go');
+            $(`.players-wrapper .${this.player.dataAttr} .fight-options`).addClass('active');
+        };
     }
 };

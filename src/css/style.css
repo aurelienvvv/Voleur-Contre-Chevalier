@@ -515,6 +515,234 @@ html {
   background-size: 100%;
 }
 
+.cells-container .cells .cell.player.attacked.right-enemy {
+  -webkit-animation: anim-attacked-right 0.5s;
+          animation: anim-attacked-right 0.5s;
+}
+
+@-webkit-keyframes anim-attacked-right {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateX(0) scaleX(1);
+            transform: translateX(0) scaleX(1);
+    background-color: inherit;
+  }
+  65% {
+    -webkit-transform: translateX(-10px) scaleX(1) rotate(-35deg);
+            transform: translateX(-10px) scaleX(1) rotate(-35deg);
+    background-color: #ff5e5e;
+  }
+  75% {
+    -webkit-transform: translateX(-10px) scaleX(1);
+            transform: translateX(-10px) scaleX(1);
+    background-color: inherit;
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+@keyframes anim-attacked-right {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateX(0) scaleX(1);
+            transform: translateX(0) scaleX(1);
+    background-color: inherit;
+  }
+  65% {
+    -webkit-transform: translateX(-10px) scaleX(1) rotate(-35deg);
+            transform: translateX(-10px) scaleX(1) rotate(-35deg);
+    background-color: #ff5e5e;
+  }
+  75% {
+    -webkit-transform: translateX(-10px) scaleX(1);
+            transform: translateX(-10px) scaleX(1);
+    background-color: inherit;
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+.cells-container .cells .cell.player.attacked.left-enemy {
+  -webkit-animation: anim-attacked-left 0.5s;
+          animation: anim-attacked-left 0.5s;
+}
+
+@-webkit-keyframes anim-attacked-left {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(-1);
+            transform: translateX(0px) scaleX(-1);
+  }
+  50% {
+    -webkit-transform: translateX(0) scaleX(-1);
+            transform: translateX(0) scaleX(-1);
+    background-color: inherit;
+  }
+  65% {
+    -webkit-transform: translateX(10px) scaleX(-1) rotate(-35deg);
+            transform: translateX(10px) scaleX(-1) rotate(-35deg);
+    background-color: #ff5e5e;
+  }
+  75% {
+    -webkit-transform: translateX(10px) scaleX(-1);
+            transform: translateX(10px) scaleX(-1);
+    background-color: inherit;
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(-1);
+            transform: translateX(0px) scaleX(-1);
+  }
+}
+
+@keyframes anim-attacked-left {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(-1);
+            transform: translateX(0px) scaleX(-1);
+  }
+  50% {
+    -webkit-transform: translateX(0) scaleX(-1);
+            transform: translateX(0) scaleX(-1);
+    background-color: inherit;
+  }
+  65% {
+    -webkit-transform: translateX(10px) scaleX(-1) rotate(-35deg);
+            transform: translateX(10px) scaleX(-1) rotate(-35deg);
+    background-color: #ff5e5e;
+  }
+  75% {
+    -webkit-transform: translateX(10px) scaleX(-1);
+            transform: translateX(10px) scaleX(-1);
+    background-color: inherit;
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(-1);
+            transform: translateX(0px) scaleX(-1);
+  }
+}
+
+.cells-container .cells .cell.player.attacked.top-enemy {
+  -webkit-animation: anim-attacked-top 0.5s;
+          animation: anim-attacked-top 0.5s;
+}
+
+@-webkit-keyframes anim-attacked-top {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateY(0) scaleX(1);
+            transform: translateY(0) scaleX(1);
+    background-color: inherit;
+  }
+  65% {
+    -webkit-transform: translateY(10px) scaleX(1) rotate(-35deg);
+            transform: translateY(10px) scaleX(1) rotate(-35deg);
+    background-color: #ff5e5e;
+  }
+  75% {
+    -webkit-transform: translateY(10px) scaleX(1);
+            transform: translateY(10px) scaleX(1);
+    background-color: inherit;
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+@keyframes anim-attacked-top {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateY(0) scaleX(1);
+            transform: translateY(0) scaleX(1);
+    background-color: inherit;
+  }
+  65% {
+    -webkit-transform: translateY(10px) scaleX(1) rotate(-35deg);
+            transform: translateY(10px) scaleX(1) rotate(-35deg);
+    background-color: #ff5e5e;
+  }
+  75% {
+    -webkit-transform: translateY(10px) scaleX(1);
+            transform: translateY(10px) scaleX(1);
+    background-color: inherit;
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+.cells-container .cells .cell.player.attacked.bottom-enemy {
+  -webkit-animation: anim-attacked-bottom 0.5s;
+          animation: anim-attacked-bottom 0.5s;
+}
+
+@-webkit-keyframes anim-attacked-bottom {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateY(0) scaleX(1);
+            transform: translateY(0) scaleX(1);
+    background-color: inherit;
+  }
+  65% {
+    -webkit-transform: translateY(-10px) scaleX(1) rotate(-35deg);
+            transform: translateY(-10px) scaleX(1) rotate(-35deg);
+    background-color: #ff5e5e;
+  }
+  75% {
+    -webkit-transform: translateY(-10px) scaleX(1);
+            transform: translateY(-10px) scaleX(1);
+    background-color: inherit;
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
+@keyframes anim-attacked-bottom {
+  0% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+  50% {
+    -webkit-transform: translateY(0) scaleX(1);
+            transform: translateY(0) scaleX(1);
+    background-color: inherit;
+  }
+  65% {
+    -webkit-transform: translateY(-10px) scaleX(1) rotate(-35deg);
+            transform: translateY(-10px) scaleX(1) rotate(-35deg);
+    background-color: #ff5e5e;
+  }
+  75% {
+    -webkit-transform: translateY(-10px) scaleX(1);
+            transform: translateY(-10px) scaleX(1);
+    background-color: inherit;
+  }
+  100% {
+    -webkit-transform: translateX(0px) scaleX(1);
+            transform: translateX(0px) scaleX(1);
+  }
+}
+
 .cells-container .cells .cell.player.attack-now.right-enemy {
   -webkit-animation: attack-anim-right 0.5s;
           animation: attack-anim-right 0.5s;
@@ -816,7 +1044,7 @@ html {
 }
 
 .cells-container .cells .cell[data-player="player1"].current-player {
-  background-color: #753799 !important;
+  background-color: #753799;
   z-index: 1;
 }
 
@@ -830,7 +1058,7 @@ html {
 }
 
 .cells-container .cells .cell[data-player="player2"].current-player {
-  background-color: #373999 !important;
+  background-color: #373999;
   z-index: 1;
 }
 
@@ -880,17 +1108,27 @@ html {
 .players-wrapper .player .fight-options {
   position: absolute;
   top: -100%;
-  right: 0;
+  left: 0;
   padding: 10px 20px;
   background-color: #101236;
 }
 
 .players-wrapper .player .fight-options button {
-  font-family: 'VT323', monospace;
+  cursor: pointer;
+  font-family: 'Contrail One', cursive;
+  text-transform: uppercase;
   background-color: transparent;
   font-size: 18px;
   color: white;
   outline: 0;
+  padding: 5px 20px;
+  border: 1px solid white;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+.players-wrapper .player .fight-options button:hover {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .players-wrapper .player .fight-options.active {
@@ -955,8 +1193,8 @@ html {
 }
 
 .players-wrapper .player:first-of-type .fight-options {
-  right: auto;
-  left: 0;
+  left: auto;
+  right: 0;
   background-color: #361f44;
 }
 
@@ -1007,6 +1245,11 @@ html {
           flex-direction: column;
   padding: 0 20px;
   z-index: 1;
+}
+
+.players-wrapper .player .wrapper-infos .name {
+  font-family: 'Contrail One', cursive;
+  text-transform: uppercase;
 }
 
 .game-container {
@@ -1190,8 +1433,8 @@ html {
 }
 
 .game-container .start-screen.active .title {
-  -webkit-transform: translateY(0);
-          transform: translateY(0);
+  -webkit-transform: translateY(0) translateX(-25px);
+          transform: translateY(0) translateX(-25px);
 }
 
 .game-container .start-screen.active .start-btn {
@@ -1205,9 +1448,7 @@ html {
   text-transform: uppercase;
   color: white;
   font-size: 95px;
-  -webkit-animation: title-shadow 1s infinite;
-          animation: title-shadow 1s infinite;
-  text-align: center;
+  text-align: left;
   line-height: 1;
   -webkit-transform: translateY(-200%);
           transform: translateY(-200%);
@@ -1215,6 +1456,26 @@ html {
   transition: .5s ease-in-out;
   -webkit-transition-delay: .2s;
           transition-delay: .2s;
+}
+
+.game-container .start-screen .title .anim {
+  -webkit-animation: title-shadow 1s infinite;
+          animation: title-shadow 1s infinite;
+}
+
+.game-container .start-screen .title .anim:last-child {
+  display: block;
+  -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+}
+
+.game-container .start-screen .title .sm {
+  position: relative;
+  margin: -20px auto -15px;
+  padding: 12px;
+  font-family: 'VT323', monospace;
+  font-size: 35px;
+  border-radius: 50%;
 }
 
 @-webkit-keyframes title-shadow {
@@ -1314,5 +1575,15 @@ html {
 
 .fight-time .cells-container .cells .cell.vide {
   background-color: transparent;
+}
+
+.fight-time .cells-container .cells .cell[data-player="player1"].current-player {
+  background-color: #753799;
+  z-index: 1;
+}
+
+.fight-time .cells-container .cells .cell[data-player="player2"].current-player {
+  background-color: #373999;
+  z-index: 1;
 }
 /*# sourceMappingURL=style.css.map */

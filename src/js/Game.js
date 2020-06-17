@@ -3,7 +3,7 @@ class Game {
         this.weapon = new Weapon;
         this.arrOfWeapons = this.weapon.generateWeapon(Data.nbOfWeapons);
 
-        this.playerOne = new Player('Voleur d\'or', 100, 'player1', 'Aucune');
+        this.playerOne = new Player('Voleur', 100, 'player1', 'Aucune');
         this.playerTwo = new Player('Chevalier', 100, 'player2', 'Aucune');
         this.arrOfPlayers = [this.playerOne, this.playerTwo];
         Data.currentPlayer = Utils.selectRandom(this.arrOfPlayers);

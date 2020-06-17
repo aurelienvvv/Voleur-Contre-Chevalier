@@ -110,3 +110,83 @@ $color-player-2: $blue;
         left: 80%;
     }
 }
+
+@mixin anim-hit($tr1, $tr2, $scaleX, $anim) {
+    animation: $anim .5s;
+    @if ($anim == attack-anim-right) {
+        @keyframes attack-anim-right {
+            0% {transform: translateX(0px)  $scaleX;}
+            50% {transform: $tr1 $scaleX;}
+            65% {transform: $tr2 $scaleX;}
+            75% {transform: $tr2 $scaleX;}
+            100% {transform: translateX(0px) $scaleX;}
+        }
+    }
+    @else if ($anim == attack-anim-left) {
+        @keyframes attack-anim-left {
+            0% {transform: translateX(0px)  $scaleX;}
+            50% {transform: $tr1 $scaleX;}
+            65% {transform: $tr2 $scaleX;}
+            75% {transform: $tr2 $scaleX;}
+            100% {transform: translateX(0px) $scaleX;}
+        }
+    }
+    @else if ($anim == attack-anim-top) {
+        @keyframes attack-anim-top {
+            0% {transform: translateX(0px)  $scaleX;}
+            50% {transform: $tr1 $scaleX;}
+            65% {transform: $tr2 $scaleX;}
+            75% {transform: $tr2 $scaleX;}
+            100% {transform: translateX(0px) $scaleX;}
+        }
+    }
+    @else if ($anim == attack-anim-bottom) {
+        @keyframes attack-anim-bottom {
+            0% {transform: translateX(0px)  $scaleX;}
+            50% {transform: $tr1 $scaleX;}
+            65% {transform: $tr2 $scaleX;}
+            75% {transform: $tr2 $scaleX;}
+            100% {transform: translateX(0px) $scaleX;}
+        }
+    }
+
+    @else if ($anim == anim-attacked-bottom){
+        @keyframes anim-attacked-bottom {
+            0% {transform: translateX(0px)  $scaleX;;}
+            50% {transform: $tr1 $scaleX; background-color: inherit;}
+            65% {transform: $tr2 $scaleX rotate(-35deg); background-color: rgb(255, 94, 94);}
+            75% {transform: $tr2 $scaleX; background-color: inherit;}
+            100% {transform: translateX(0px) $scaleX;}
+        }
+    }
+
+    @else if ($anim == anim-attacked-top){
+        @keyframes anim-attacked-top {
+            0% {transform: translateX(0px)  $scaleX;}
+            50% {transform: $tr1 $scaleX; background-color: inherit;}
+            65% {transform: $tr2 $scaleX rotate(-35deg); background-color: rgb(255, 94, 94);}
+            75% {transform: $tr2 $scaleX; background-color: inherit;}
+            100% {transform: translateX(0px) $scaleX;}
+        }
+    }
+
+    @else if ($anim == anim-attacked-left){
+        @keyframes anim-attacked-left {
+            0% {transform: translateX(0px)  $scaleX;}
+            50% {transform: $tr1 $scaleX; background-color: inherit;}
+            65% {transform: $tr2 $scaleX rotate(-35deg); background-color: rgb(255, 94, 94);}
+            75% {transform: $tr2 $scaleX; background-color: inherit;}
+            100% {transform: translateX(0px) $scaleX;}
+        }
+    }
+
+    @else if ($anim == anim-attacked-right){
+        @keyframes anim-attacked-right {
+            0% {transform: translateX(0px)  $scaleX;}
+            50% {transform: $tr1 $scaleX; background-color: inherit;}
+            65% {transform: $tr2 $scaleX rotate(-35deg); background-color: rgb(255, 94, 94);}
+            75% {transform: $tr2 $scaleX; background-color: inherit;}
+            100% {transform: translateX(0px) $scaleX;}
+        }
+    }
+}

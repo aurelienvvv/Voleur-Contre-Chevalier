@@ -14,4 +14,13 @@ class Utils {
 
         return player[0];
     };
+
+    static firstScreenStyle() {
+        setInterval(function () {
+            let randomWeapon = Utils.selectRandom(Data.weaponsValues);
+            let randomAnimation = Utils.selectRandom(['weapons-rain-2', 'weapons-rain']);
+            $('.weapon-decoration').css('background-image', `url('src/img/${randomWeapon.dataAttr}.png')`);
+            $('.weapon-decoration').css('animation', `${randomAnimation} 2s infinite`);
+        }, 2000);
+    }
 };

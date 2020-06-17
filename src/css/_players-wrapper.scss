@@ -34,16 +34,25 @@
         .fight-options {
             position: absolute;
             top: -100%;
-            right: 0;
+            left: 0;
             padding: 10px 20px;
             background-color: $darkblue;
 
             button {
-                font-family: 'VT323', monospace;
+                cursor: pointer;
+                font-family: 'Contrail One', cursive;
+                text-transform: uppercase;
                 background-color: transparent;
                 font-size: 18px;
                 color: $white;
                 outline: 0;
+                padding: 5px 20px;
+                border: 1px solid white;
+                transition: .3s;
+
+                &:hover {
+                    background-color: rgba(white, .5);
+                }
             }
 
             &.active {
@@ -94,8 +103,8 @@
             text-align: right;
 
             .fight-options {
-                right: auto;
-                left: 0;
+                left: auto;
+                right: 0;
                 background-color: $darkviolet;
             }
 
@@ -137,6 +146,11 @@
             flex-direction: column;
             padding: 0 20px;
             z-index: 1;
+
+            .name {
+                font-family: 'Contrail One', cursive;
+                text-transform: uppercase;
+            }
         }
     }
 }
