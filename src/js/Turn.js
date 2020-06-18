@@ -5,75 +5,29 @@ class Turn {
         this.playerPosition = $(`[data-player=${this.player.dataAttr}]`);
         this.currentPlayerWeapon = this.player.weapon;
 
-        // variables pour les déplacements
-        this.dataX = this.playerPosition.data('x');
-        this.dataY = this.playerPosition.data('y');
-        this.dataXMin = this.dataX - 3;
-        this.dataXMax = this.dataX + 4;
-        this.dataYMin = this.dataY - 3;
-        this.dataYMax = this.dataY + 4;
-
         // met à jour dom des joueurs
         this.displayInfosPlayer();
 
         // ajoute les classes can-go aux axes x et y
         this.whereCanGo();
 
-        // limites can-go à 3 cases en x et en y
-        this.loopCanGo(0, this.dataXMin, 'data-x');
-        this.loopCanGo(this.dataXMax, 10, 'data-x');
-        this.loopCanGo(0, this.dataYMin, 'data-y');
-        this.loopCanGo(this.dataYMax, 10, 'data-y');
-
-
         // empêche de traverser les murs
         this.checkWalls();
 
         // check si les joueurs sont face à face
-        this.checkEnemyForFight('x', this.dataX - 1, 'y', this.dataY);
-        this.checkEnemyForFight('x', this.dataX + 1, 'y', this.dataY);
-        this.checkEnemyForFight('y', this.dataY - 1, 'x', this.dataX);
-        this.checkEnemyForFight('y', this.dataY + 1, 'x', this.dataX);
-
+        this.checkEnemyAllDirections();
 
         // au click sur une case accessible
         $(".can-go").on('click', (e) => {
             this.$obj = $(e.currentTarget);
             this.endPlayerDataX = this.$obj.data('x');
             this.endPlayerDataY = this.$obj.data('y');
-            this.startPlayerDataX = Data.startTurnPosition.data('x');
-            this.startPlayerDataY = Data.startTurnPosition.data('y');
-            this.startOrientation;
 
             // met à jour la position du joueur sur la case
             this.playerMoveUpdateDom();
 
             // boucles de récupération des armes :
-            // si le joueur se déplace de la gauche vers la droite
-            if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX <= this.endPlayerDataX) {
-                $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
-                this.startOrientation = true;
-                this.loopMove(this.startPlayerDataX, this.endPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
-            }
-
-            // si le joueur se déplace de la droite vers la gauche
-            else if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX >= this.endPlayerDataX) {
-                $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
-                this.startOrientation = false;
-                this.loopMove(this.endPlayerDataX, this.startPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
-            }
-
-            // si le joueur se déplace de haut en bas
-            else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY <= this.endPlayerDataY) {
-                this.startOrientation = true;
-                this.loopMove(this.startPlayerDataY, this.endPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
-            }
-
-            // si le joueur se déplace de bas en haut
-            else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY >= this.endPlayerDataY) {
-                this.startOrientation = false;
-                this.loopMove(this.endPlayerDataY, this.startPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
-            };
+            this.movePlayerConditions();
 
             // sélectionne l'autre joueur
             Utils.selectPlayer();
@@ -90,37 +44,27 @@ class Turn {
         // au click sur le bouton de défense
         $(`.players-wrapper .${this.player.dataAttr} .btn-defense`).unbind().on('click', () => {
             this.openFightOptions();
-            $('.cell').removeClass('attack-now');
-            $('.cell').removeClass('attacked');
 
+            this.classOnDefense();
             // ajoute true à protect du joueur en cours
             this.player.protect = true;
-            $(`[data-player = ${this.player.dataAttr}]`).addClass('protect');
 
             this.fightCondition();
         });
 
         // au click sur le bouton d'attaque
         $(`.players-wrapper .${this.player.dataAttr} .btn-attack`).unbind().on('click', () => {
+            // choix d'attaquer ou de defendre
             this.openFightOptions();
-            $('.cell').removeClass('attack-now');
-            $('.cell').removeClass('attacked');
+            this.damagesOnHit();
 
-            // dégat selon l'arme possédée
-            if (this.currentPlayerWeapon.damage) {
-                this.enemy[0].protect ? this.enemy[0].life -= this.currentPlayerWeapon.damage / 2 : this.enemy[0].life -= this.currentPlayerWeapon.damage;
-            } else {
-                this.enemy[0].protect ? this.enemy[0].life -= 1 : this.enemy[0].life -= 2;
-            }
+            // choix d'attaquer ou de defendre
+            this.classOnAttack();
 
-            $(`[data-player = ${this.enemy[0].dataAttr}]`).removeClass('protect');
-
-            // classe qui ajoute une animation visuelle
-            $('.current-player').addClass('attack-now');
-            $(`[data-player = ${this.enemy[0].dataAttr}]`).addClass('attacked');
-
-            // retire true à protect de l'ennemie
+            // retire true à protect de l'ennemi
             this.enemy[0].protect = false;
+
+            // relance un tour ou termine la partie
             this.fightCondition();
         });
     };
@@ -138,10 +82,24 @@ class Turn {
     };
 
     whereCanGo() {
+        // variables pour les déplacements
+        this.dataX = this.playerPosition.data('x');
+        this.dataY = this.playerPosition.data('y');
+        this.dataXMin = this.dataX - 3;
+        this.dataXMax = this.dataX + 4;
+        this.dataYMin = this.dataY - 3;
+        this.dataYMax = this.dataY + 4;
+
         // donne accès aux cases, 3 cases en y, 3 cases en x
         $(`[data-x = ${this.dataX}], [data-y = ${this.dataY}]`).addClass('can-go');
         $(`[data-x = ${this.dataX}][data-y = ${this.dataY}]`).removeClass('can-go');
         $('.can-go.player').removeClass('can-go');
+
+        // limites can-go à 3 cases en x et en y
+        this.loopCanGo(0, this.dataXMin, 'data-x');
+        this.loopCanGo(this.dataXMax, 10, 'data-x');
+        this.loopCanGo(0, this.dataYMin, 'data-y');
+        this.loopCanGo(this.dataYMax, 11, 'data-y');
     };
 
     loopCanGo(startLoop, endLoop, dataAttr) {
@@ -157,11 +115,10 @@ class Turn {
         wallsOnWay.each((index, elem) => {
             let dataWallX = $(elem).data('x');
             let dataWallY = $(elem).data('y');
-            let maxX = Data.xMaxCells;
 
 
             if (this.dataX < dataWallX) {
-                for (let i = dataWallX; i < maxX; i++) {
+                for (let i = dataWallX; i < 10; i++) {
                     $(`[data-x = ${i}]`).removeClass('can-go');
                 }
             }
@@ -173,7 +130,7 @@ class Turn {
             }
 
             else if (this.dataY < dataWallY) {
-                for (let i = dataWallY; i < maxX; i++) {
+                for (let i = dataWallY; i < 11; i++) {
                     $(`[data-y = ${i}]`).removeClass('can-go');
                 }
             }
@@ -185,6 +142,33 @@ class Turn {
             }
         })
     };
+
+    movePlayerConditions() {
+        this.startPlayerDataX = Data.startTurnPosition.data('x');
+        this.startPlayerDataY = Data.startTurnPosition.data('y');
+
+        // si le joueur se déplace de la gauche vers la droite
+        if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX <= this.endPlayerDataX) {
+            $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
+            this.loopMove(this.startPlayerDataX, this.endPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
+        }
+
+        // si le joueur se déplace de la droite vers la gauche
+        else if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX >= this.endPlayerDataX) {
+            $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
+            this.loopMove(this.endPlayerDataX, this.startPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
+        }
+
+        // si le joueur se déplace de haut en bas
+        else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY <= this.endPlayerDataY) {
+            this.loopMove(this.startPlayerDataY, this.endPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
+        }
+
+        // si le joueur se déplace de bas en haut
+        else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY >= this.endPlayerDataY) {
+            this.loopMove(this.endPlayerDataY, this.startPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
+        };
+    }
 
     loopMove(startLoop, endLoop, staticDataYX, incrementAttribute, staticAttribute) {
         for (let i = startLoop; i <= endLoop; i++) {
@@ -259,6 +243,13 @@ class Turn {
         };
     };
 
+    checkEnemyAllDirections() {
+        this.checkEnemyForFight('x', this.dataX - 1, 'y', this.dataY);
+        this.checkEnemyForFight('x', this.dataX + 1, 'y', this.dataY);
+        this.checkEnemyForFight('y', this.dataY - 1, 'x', this.dataX);
+        this.checkEnemyForFight('y', this.dataY + 1, 'x', this.dataX);
+    };
+
     fightCondition() {
         if (this.enemy[0].life <= 0) {
             // si l'ennemi n'a plus de vie, affiche l'écran de fin
@@ -290,7 +281,36 @@ class Turn {
     isFight() {
         if ($('.fight-time').length) {
             $('.cell').removeClass('can-go');
+            $('.cell').off('click');
             $(`.players-wrapper .${this.player.dataAttr} .fight-options`).addClass('active');
         };
-    }
+    };
+
+    classOnDefense() {
+        $('.cell').removeClass('attack-now');
+        $('.cell').removeClass('attacked');
+
+        $(`[data-player = ${this.player.dataAttr}]`).addClass('protect');
+    };
+
+    classOnAttack() {
+        $('.cell').removeClass('attack-now');
+        $('.cell').removeClass('attacked');
+
+        // Retire le bouclier de l'ennemie si il en a un
+        $(`[data-player = ${this.enemy[0].dataAttr}]`).removeClass('protect');
+
+        // classe qui ajoute une animation visuelle
+        $('.current-player').addClass('attack-now');
+        $(`[data-player = ${this.enemy[0].dataAttr}]`).addClass('attacked');
+    };
+
+    damagesOnHit() {
+        // dégat selon l'arme possédée
+        if (this.currentPlayerWeapon.damage) {
+            this.enemy[0].protect ? this.enemy[0].life -= this.currentPlayerWeapon.damage / 2 : this.enemy[0].life -= this.currentPlayerWeapon.damage;
+        } else {
+            this.enemy[0].protect ? this.enemy[0].life -= 1 : this.enemy[0].life -= 2;
+        };
+    };
 };

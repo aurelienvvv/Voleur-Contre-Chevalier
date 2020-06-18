@@ -143,6 +143,10 @@
 
             .title {
                 transform: translateY(0) translateX(-25px);
+
+                @media (max-width: $mobile) {
+                    transform: translateY(0) translateX(-15px);
+                }
             }
 
             .start-btn {
@@ -161,6 +165,11 @@
             transform: translateY(-200%);
             transition: .5s ease-in-out;
             transition-delay: .2s;
+
+            @media (max-width: $mobile) {
+                font-size: 63px;
+                margin-bottom: 30px;
+            }
             
 
             .anim {
@@ -207,13 +216,31 @@
             width: 800px;
             top: -100%;
             justify-content: space-between;
+            flex-direction: column;
             transition: .7s ease-in-out;
+
+            @media (max-width: $tablet) {
+                height: 90%;
+                width: 80%;
+            }
+
+            @media (max-width: $mobile) {
+                height: 80%;
+            }
 
             .player {
                 img {
                     height: 140px;
                     animation : player-jump 2s infinite;
                     animation-delay: 1.5s;
+
+                    @media (max-width: $mobile) {
+                        height: 100px;
+                    }
+
+                    @media (max-width: $mobile) {
+                        height: 80px;
+                    }
                 }
 
                 &:last-child {

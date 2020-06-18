@@ -471,6 +471,7 @@ html {
 
 @media (max-width: 425px) {
   .cells-container .cells {
+    width: 300px;
     -ms-grid-columns: (1fr)[6];
         grid-template-columns: repeat(6, 1fr);
   }
@@ -486,8 +487,8 @@ html {
 
 @media (max-width: 425px) {
   .cells-container .cells .cell {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
 }
 
@@ -1097,6 +1098,13 @@ html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background: #101236;
+  z-index: 50;
+}
+
+@media (max-width: 425px) {
+  .players-wrapper {
+    width: 100%;
+  }
 }
 
 .players-wrapper .player {
@@ -1139,8 +1147,10 @@ html {
   position: absolute;
   top: -100%;
   left: 0;
-  padding: 10px 20px;
+  padding: 15px 20px;
   background-color: #101236;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
@@ -1153,6 +1163,16 @@ html {
   }
 }
 
+@media (max-width: 425px) {
+  .players-wrapper .player .fight-options {
+    position: fixed;
+    bottom: -100%;
+    top: auto;
+    width: 100%;
+    background-color: #373999;
+  }
+}
+
 .players-wrapper .player .fight-options button {
   cursor: pointer;
   font-family: 'Contrail One', cursive;
@@ -1161,7 +1181,7 @@ html {
   font-size: 18px;
   color: white;
   outline: 0;
-  padding: 5px 20px;
+  padding: 10px 30px;
   border: 1px solid white;
   -webkit-transition: .3s;
   transition: .3s;
@@ -1173,6 +1193,16 @@ html {
 
 .players-wrapper .player .fight-options.active {
   top: 100%;
+}
+
+@media (max-width: 425px) {
+  .players-wrapper .player .fight-options.active {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    bottom: 0;
+    top: auto;
+  }
 }
 
 .players-wrapper .player .current-turn {
@@ -1251,6 +1281,12 @@ html {
   }
 }
 
+@media (max-width: 425px) {
+  .players-wrapper .player:first-of-type .fight-options {
+    background-color: #753799;
+  }
+}
+
 .players-wrapper .player:first-of-type img {
   -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
@@ -1281,8 +1317,26 @@ html {
   z-index: 1;
 }
 
+@media (max-width: 425px) {
+  .players-wrapper .player .wrapper-img {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
 .players-wrapper .player .wrapper-img img {
   height: 100%;
+}
+
+@media (max-width: 425px) {
+  .players-wrapper .player .wrapper-img img {
+    height: auto;
+    max-width: 60px;
+  }
 }
 
 .players-wrapper .player .wrapper-infos {
@@ -1310,6 +1364,12 @@ html {
 .players-wrapper .player .wrapper-infos .name {
   font-family: 'Contrail One', cursive;
   text-transform: uppercase;
+}
+
+@media (max-width: 425px) {
+  .players-wrapper .player .wrapper-infos .name {
+    font-size: 18px;
+  }
 }
 
 .game-container {
@@ -1497,6 +1557,13 @@ html {
           transform: translateY(0) translateX(-25px);
 }
 
+@media (max-width: 425px) {
+  .game-container .start-screen.active .title {
+    -webkit-transform: translateY(0) translateX(-15px);
+            transform: translateY(0) translateX(-15px);
+  }
+}
+
 .game-container .start-screen.active .start-btn {
   -webkit-transform: translateY(0);
           transform: translateY(0);
@@ -1516,6 +1583,13 @@ html {
   transition: .5s ease-in-out;
   -webkit-transition-delay: .2s;
           transition-delay: .2s;
+}
+
+@media (max-width: 425px) {
+  .game-container .start-screen .title {
+    font-size: 63px;
+    margin-bottom: 30px;
+  }
 }
 
 .game-container .start-screen .title .anim {
@@ -1586,8 +1660,25 @@ html {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-transition: .7s ease-in-out;
   transition: .7s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .game-container .start-screen .players {
+    height: 90%;
+    width: 80%;
+  }
+}
+
+@media (max-width: 425px) {
+  .game-container .start-screen .players {
+    height: 80%;
+  }
 }
 
 .game-container .start-screen .players .player img {
@@ -1596,6 +1687,18 @@ html {
           animation: player-jump 2s infinite;
   -webkit-animation-delay: 1.5s;
           animation-delay: 1.5s;
+}
+
+@media (max-width: 425px) {
+  .game-container .start-screen .players .player img {
+    height: 100px;
+  }
+}
+
+@media (max-width: 425px) {
+  .game-container .start-screen .players .player img {
+    height: 80px;
+  }
 }
 
 .game-container .start-screen .players .player:last-child {
