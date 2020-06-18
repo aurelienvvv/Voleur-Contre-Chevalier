@@ -157,10 +157,11 @@ class Turn {
         wallsOnWay.each((index, elem) => {
             let dataWallX = $(elem).data('x');
             let dataWallY = $(elem).data('y');
+            let maxX = Data.xMaxCells;
 
 
             if (this.dataX < dataWallX) {
-                for (let i = dataWallX; i < 10; i++) {
+                for (let i = dataWallX; i < maxX; i++) {
                     $(`[data-x = ${i}]`).removeClass('can-go');
                 }
             }
@@ -172,7 +173,7 @@ class Turn {
             }
 
             else if (this.dataY < dataWallY) {
-                for (let i = dataWallY; i < 10; i++) {
+                for (let i = dataWallY; i < maxX; i++) {
                     $(`[data-y = ${i}]`).removeClass('can-go');
                 }
             }

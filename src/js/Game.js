@@ -9,6 +9,12 @@ class Game {
         Data.currentPlayer = Utils.selectRandom(this.arrOfPlayers);
         this.arrOfPlayers.map(player => player.updatePlayerDom(player));
 
+        if (Utils.isMobileMenu()) {
+            Data.nbOfCells = 66;
+            Data.xMaxCells = 5;
+            Data.nbOfWalls = 10;
+        }
+
         new Board(this.arrOfPlayers, this.arrOfWeapons);
         new Turn();
     };

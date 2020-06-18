@@ -20,7 +20,7 @@ class Board {
             stateOfCell.push('innacessible');
         }
 
-        for (let i = 0; i < 100 - Data.nbOfWalls; i++) {
+        for (let i = 0; i < Data.nbOfCells - Data.nbOfWalls; i++) {
             stateOfCell.push('vide');
         }
 
@@ -48,13 +48,15 @@ class Board {
     // Ajout des coordonnées X et Y aux cases
     addCoordonates(allCells) {
         let cellsWithCoordonates = [];
-        let x = -1;
         let y = 0;
+        let x = -1;
 
         for (let i = 0; i < allCells.length; i++) {
+
+            console.log(Data.xMaxCells);
             x += 1;
 
-            if (x > 9) {
+            if (x > Data.xMaxCells) {
                 y += 1;
                 x = 0;
             };

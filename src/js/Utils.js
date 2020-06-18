@@ -22,5 +22,9 @@ class Utils {
             $('.weapon-decoration').css('background-image', `url('src/img/${randomWeapon.dataAttr}.png')`);
             $('.weapon-decoration').css('animation', `${randomAnimation} 2s infinite`);
         }, 2000);
-    }
+    };
+
+    static isMobileMenu() {
+        return $('.mobile-screen').is(":visible");
+    };
 };

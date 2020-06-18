@@ -1,4 +1,3 @@
-
 Utils.firstScreenStyle();
 
 // Launch Game //
@@ -15,4 +14,3 @@ $('.reload-btn').on('click', () => {
     game.clearGame();
     game = new Game();
 });
-

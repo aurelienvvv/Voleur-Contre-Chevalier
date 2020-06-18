@@ -10,6 +10,14 @@ html {
     box-sizing: border-box;
 }
 
+.mobile-screen {
+    display: none;
+
+    @media (max-width: $mobile) {
+        display: block;
+    }
+}
+
 .btn-custom {
     cursor: pointer;
     font-family: 'VT323', monospace;

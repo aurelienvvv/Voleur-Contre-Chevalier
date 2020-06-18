@@ -2,7 +2,7 @@
 .players-wrapper {
     position: relative;
     display: flex;
-    height: 80px;
+    height: 90px;
     font-size: 20px;
     color: $white;
     box-sizing: border-box;
@@ -15,6 +15,10 @@
         width: 100%;
         padding: 10px 20px;
         box-sizing: border-box;
+
+        @media (max-width: $tablet) {
+            padding: 10px;
+        }
 
         &:after {
             content: '';
@@ -37,6 +41,12 @@
             left: 0;
             padding: 10px 20px;
             background-color: $darkblue;
+
+            @media (max-width: $tablet) {
+                display: flex;
+                right: 0;
+                left: auto;
+            }
 
             button {
                 cursor: pointer;
@@ -67,6 +77,10 @@
             right: 10px;
             color: $lightviolet;
             transition: .3s;
+
+            @media (max-width: $tablet) {
+                display: none;
+            }
         }
 
         @keyframes opacity-changing {
@@ -106,6 +120,11 @@
                 left: auto;
                 right: 0;
                 background-color: $darkviolet;
+
+                @media (max-width: $tablet) {
+                    left: 0;
+                    right: auto;
+                }
             }
 
             img {
@@ -146,6 +165,11 @@
             flex-direction: column;
             padding: 0 20px;
             z-index: 1;
+
+            @media (max-width: $tablet) {
+                font-size: 16px;
+                padding: 0;
+            }
 
             .name {
                 font-family: 'Contrail One', cursive;

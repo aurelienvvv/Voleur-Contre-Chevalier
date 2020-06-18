@@ -2,6 +2,7 @@ let Data = {
     currentPlayer: null,
     startTurnPosition: null,
     nbOfCells: 100,
+    xMaxCells: 9,
     nbOfWalls: 18,
     nbOfWeapons: 7,
     weaponsValues: [{

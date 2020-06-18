@@ -411,6 +411,16 @@ html {
           box-sizing: border-box;
 }
 
+.mobile-screen {
+  display: none;
+}
+
+@media (max-width: 425px) {
+  .mobile-screen {
+    display: block;
+  }
+}
+
 .btn-custom {
   cursor: pointer;
   font-family: 'VT323', monospace;
@@ -459,12 +469,26 @@ html {
   padding: 0;
 }
 
+@media (max-width: 425px) {
+  .cells-container .cells {
+    -ms-grid-columns: (1fr)[6];
+        grid-template-columns: repeat(6, 1fr);
+  }
+}
+
 .cells-container .cells .cell {
   width: 50px;
   height: 50px;
   border: 1px solid #505050;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+@media (max-width: 425px) {
+  .cells-container .cells .cell {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .cells-container .cells .cell.vide {
@@ -1067,7 +1091,7 @@ html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 80px;
+  height: 90px;
   font-size: 20px;
   color: white;
   -webkit-box-sizing: border-box;
@@ -1085,6 +1109,12 @@ html {
   padding: 10px 20px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .players-wrapper .player {
+    padding: 10px;
+  }
 }
 
 .players-wrapper .player:after {
@@ -1111,6 +1141,16 @@ html {
   left: 0;
   padding: 10px 20px;
   background-color: #101236;
+}
+
+@media (max-width: 768px) {
+  .players-wrapper .player .fight-options {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    right: 0;
+    left: auto;
+  }
 }
 
 .players-wrapper .player .fight-options button {
@@ -1143,6 +1183,12 @@ html {
   color: #fca3ff;
   -webkit-transition: .3s;
   transition: .3s;
+}
+
+@media (max-width: 768px) {
+  .players-wrapper .player .current-turn {
+    display: none;
+  }
 }
 
 @-webkit-keyframes opacity-changing {
@@ -1198,6 +1244,13 @@ html {
   background-color: #361f44;
 }
 
+@media (max-width: 768px) {
+  .players-wrapper .player:first-of-type .fight-options {
+    left: 0;
+    right: auto;
+  }
+}
+
 .players-wrapper .player:first-of-type img {
   -webkit-transform: scaleX(-1);
           transform: scaleX(-1);
@@ -1245,6 +1298,13 @@ html {
           flex-direction: column;
   padding: 0 20px;
   z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .players-wrapper .player .wrapper-infos {
+    font-size: 16px;
+    padding: 0;
+  }
 }
 
 .players-wrapper .player .wrapper-infos .name {
