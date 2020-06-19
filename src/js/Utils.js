@@ -24,7 +24,7 @@ class Utils {
         }, 2000);
     };
 
-    static isMobileMenu() {
+    static isMobile() {
         return $('.mobile-screen').is(":visible");
     };
 };

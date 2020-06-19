@@ -9,7 +9,6 @@ class Board {
         this.playersNoWalls();
         this.displayCells(this.allCells);
         this.cells = this.allCells;
-
     };
 
     // Création d'une case avec une état
@@ -53,7 +52,6 @@ class Board {
 
         for (let i = 0; i < allCells.length; i++) {
 
-            console.log(Data.xMaxCells);
             x += 1;
 
             if (x > Data.xMaxCells) {

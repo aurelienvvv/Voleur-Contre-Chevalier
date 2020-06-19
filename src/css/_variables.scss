@@ -194,3 +194,8 @@ $mobile: 425px;
         }
     }
 }
+
+@keyframes anim-loser {
+    0% {background-color: violet !important;}
+    100% {background-color: blue !important;}
+}

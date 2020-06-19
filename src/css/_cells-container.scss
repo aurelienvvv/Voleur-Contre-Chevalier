@@ -12,6 +12,8 @@
         grid-template-columns: repeat(10, 1fr);
         list-style: none;
         padding: 0;
+        transition: .5s ease-in-out
+        ;
 
         @media (max-width: $mobile) {
             width: 300px;
@@ -30,7 +32,7 @@
             }
 
             &.vide {
-                background-color: $lightgrey;
+                background-color: rgb(160, 160, 160);
             }
 
             &.innacessible {
@@ -70,6 +72,10 @@
                         background-position: center;
                         background-size: 100%;
                     }
+                }
+                
+                &.you-loose {
+                    transform: rotate(-90deg);
                 }
 
                 &.attacked {
@@ -221,6 +227,10 @@
                     background-color: $color-player-1;
                     z-index: 1;
                 }
+
+                &.you-loose {
+                    background-image: url('../img/player-1-loose.png');
+                }
             }
 
             &[data-player="player2"] {
@@ -234,6 +244,10 @@
                 &.current-player {
                     background-color: $color-player-2;
                     z-index: 1;
+                }
+
+                &.you-loose {
+                    background-image: url('../img/player-2-loose.png');
                 }
             }
         }

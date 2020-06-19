@@ -400,6 +400,24 @@
   }
 }
 
+@-webkit-keyframes anim-loser {
+  0% {
+    background-color: violet !important;
+  }
+  100% {
+    background-color: blue !important;
+  }
+}
+
+@keyframes anim-loser {
+  0% {
+    background-color: violet !important;
+  }
+  100% {
+    background-color: blue !important;
+  }
+}
+
 body,
 html {
   font-family: 'VT323', monospace;
@@ -467,6 +485,8 @@ html {
       grid-template-columns: repeat(10, 1fr);
   list-style: none;
   padding: 0;
+  -webkit-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
 }
 
 @media (max-width: 425px) {
@@ -493,7 +513,7 @@ html {
 }
 
 .cells-container .cells .cell.vide {
-  background-color: #bebebe;
+  background-color: #a0a0a0;
 }
 
 .cells-container .cells .cell.innacessible {
@@ -538,6 +558,11 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
+}
+
+.cells-container .cells .cell.player.you-loose {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
 }
 
 .cells-container .cells .cell.player.attacked.right-enemy {
@@ -1073,6 +1098,10 @@ html {
   z-index: 1;
 }
 
+.cells-container .cells .cell[data-player="player1"].you-loose {
+  background-image: url("../img/player-1-loose.png");
+}
+
 .cells-container .cells .cell[data-player="player2"] {
   background-image: url("../img/player-2.png");
   z-index: 10;
@@ -1085,6 +1114,10 @@ html {
 .cells-container .cells .cell[data-player="player2"].current-player {
   background-color: #373999;
   z-index: 1;
+}
+
+.cells-container .cells .cell[data-player="player2"].you-loose {
+  background-image: url("../img/player-2-loose.png");
 }
 
 .players-wrapper {
@@ -1730,6 +1763,15 @@ html {
 .fight-time.player2 {
   -webkit-animation: fight-background-player-2 2s infinite;
           animation: fight-background-player-2 2s infinite;
+}
+
+.fight-time .cells-container {
+  overflow: hidden;
+}
+
+.fight-time .cells-container .cells {
+  -webkit-transform: scale(2);
+          transform: scale(2);
 }
 
 .fight-time .cells-container .cells .cell {

@@ -173,7 +173,6 @@
             
 
             .anim {
-                // display: block;
                 animation: title-shadow 1s infinite;
 
                 &:last-child {
@@ -274,7 +273,10 @@
     }
 
     .cells-container { 
+        overflow: hidden;
         .cells {
+            transform: scale(2);
+
             .cell {
                 background-color: transparent;
                 &.vide {

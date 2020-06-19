@@ -4,6 +4,8 @@ class Turn {
         this.player = Data.currentPlayer;
         this.playerPosition = $(`[data-player=${this.player.dataAttr}]`);
         this.currentPlayerWeapon = this.player.weapon;
+        this.dataX = this.playerPosition.data('x');
+        this.dataY = this.playerPosition.data('y');
 
         // met à jour dom des joueurs
         this.displayInfosPlayer();
@@ -40,6 +42,9 @@ class Turn {
         // COMBAT //
         // si duel : affichage des options d'attaque
         this.isFight();
+
+        // zoom visuel sur les joueurs au moment du combat
+        this.zoomOnFight();
 
         // au click sur le bouton de défense
         $(`.players-wrapper .${this.player.dataAttr} .btn-defense`).unbind().on('click', () => {
@@ -83,8 +88,6 @@ class Turn {
 
     whereCanGo() {
         // variables pour les déplacements
-        this.dataX = this.playerPosition.data('x');
-        this.dataY = this.playerPosition.data('y');
         this.dataXMin = this.dataX - 3;
         this.dataXMax = this.dataX + 4;
         this.dataYMin = this.dataY - 3;
@@ -219,7 +222,6 @@ class Turn {
         $('.cell').off("click");
     };
 
-
     checkEnemyForFight(attrEnemy, positionEnemy, attr, position) {
         if ($(`[data-${attrEnemy} = ${positionEnemy}][data-${attr} = ${position}]`).hasClass('player')) {
             $(`[data-${attrEnemy} = ${positionEnemy}][data-${attr} = ${position}]`).addClass('attack-enemy');
@@ -252,11 +254,16 @@ class Turn {
 
     fightCondition() {
         if (this.enemy[0].life <= 0) {
-            // si l'ennemi n'a plus de vie, affiche l'écran de fin
-            $('.win-screen').addClass('active');
-            $('.img-winner').addClass(this.player.dataAttr);
-            $('.winner-win-text').text(`${this.player.name}`)
+            let dataEnemy = $(`[data-player = ${this.enemy[0].dataAttr}]`);
 
+            dataEnemy.addClass('you-loose');
+
+            // si l'ennemi n'a plus de vie, affiche l'écran de fin
+            setTimeout(() => {
+                $('.win-screen').addClass('active');
+                $('.img-winner').addClass(this.player.dataAttr);
+                $('.winner-win-text').text(`${this.player.name}`)
+            }, 3000);
         } else {
             // sinon met à jour les classes du DOM
             $(`[data-player = ${this.player.dataAttr}]`).removeClass('current-player');
@@ -313,4 +320,84 @@ class Turn {
             this.enemy[0].protect ? this.enemy[0].life -= 1 : this.enemy[0].life -= 2;
         };
     };
+
+    zoomOnFight() {
+        if ($('.fight-time').length && Data.countTurnFight === 0) {
+
+            $('.cell').removeClass('place-players');
+
+            // ajout d'une classe pour connaître la position des joueurs
+            $(`[data-player]`).addClass('place-players');
+
+            // connaitre la position des joueurs et du conteneur
+            let currentPlayerOffset = $('.place-players').offset();
+            let cellsOffset = $('.cells-container .cells').offset();
+
+            // conditions placement du transform origin selon la position des joueurs
+            if (Utils.isMobile()) {
+
+                if (currentPlayerOffset.top <= 250 && currentPlayerOffset.left >= 200) {
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left + 130}px ${currentPlayerOffset.top - cellsOffset.top}px`));
+                }
+
+                else if (currentPlayerOffset.top >= 350 && currentPlayerOffset.left >= 200) {
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left + 130}px ${currentPlayerOffset.top + 130}px`));
+                }
+
+                else if (currentPlayerOffset.top <= 250) {
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top - cellsOffset.top}px`));
+                }
+
+                else if (currentPlayerOffset.top >= 350) {
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top + 130}px`));
+                }
+
+                else if (currentPlayerOffset.left >= 200) {
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left + 130}px ${currentPlayerOffset.top}px`));
+                }
+
+                else {
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - cellsOffset.left}px ${currentPlayerOffset.top}px`));
+                }
+            }
+
+            else {
+                if (currentPlayerOffset.top <= 250 && currentPlayerOffset.left <= 250) {
+                    console.log('1')
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top - cellsOffset.top - 80}px`));
+                }
+
+                else if (currentPlayerOffset.top <= 190) {
+                    console.log('2')
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top - cellsOffset.top - 80}px`));
+                }
+
+                else if (currentPlayerOffset.top >= 400 && currentPlayerOffset.left <= 250) {
+                    console.log('3')
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top + 100}px`));
+
+                }
+
+                else if (currentPlayerOffset.top >= 400) {
+                    console.log('4')
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top + 100}px`));
+                }
+
+                else if (currentPlayerOffset.left <= 250) {
+                    console.log('5')
+
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top}px`));
+                }
+
+                else {
+                    console.log('default')
+
+                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 100}px ${currentPlayerOffset.top}px`));
+                }
+            }
+
+            // permet de ne pas relancer la méthode à chaque tour
+            Data.countTurnFight = 1;
+        }
+    }
 };

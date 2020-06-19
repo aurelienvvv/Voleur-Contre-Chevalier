@@ -5,6 +5,7 @@ let Data = {
     xMaxCells: 9,
     nbOfWalls: 18,
     nbOfWeapons: 7,
+    countTurnFight: 0,
     weaponsValues: [{
         name: 'Poing Américain',
         damage: 5,
