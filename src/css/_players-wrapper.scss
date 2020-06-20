@@ -40,6 +40,30 @@
             overflow: hidden;
         }
 
+        .life-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background-color: green;
+            z-index: 1;
+            border-left: 1px solid black;
+            transition: .3s ease;
+
+            &.-red {
+                background: rgb(107, 28, 28) !important;
+            }
+
+            &.-orange {
+                background: rgb(196, 88, 16) !important;
+            }
+
+            &.-yellow {
+                background: rgb(216, 204, 29) !important;
+            }
+        }
+
         .fight-options {
             position: absolute;
             top: -100%;
@@ -104,20 +128,6 @@
             }
         }
 
-        @keyframes opacity-changing {
-            0% {
-                opacity: .7;
-            }
-            
-            50% {
-                opacity: 1;
-            }
-            
-            100% {
-                opacity: .7;
-            }
-        }
-
         &.active {
             background: $color-player-2;
 
@@ -136,6 +146,13 @@
         &:first-of-type {
             justify-content: flex-end;
             text-align: right;
+
+            .life-line {
+                left: auto;
+                right: 0;
+                border-right: 1px solid black;
+                border-left: 0;
+            }
 
             .fight-options {
                 left: auto;
@@ -172,6 +189,12 @@
                 right: auto;
                 left: 10px;
                 top: 10px;
+            }
+
+            .wrapper-infos {
+                .life {
+                justify-content: flex-end;
+                }
             }
         }
 
@@ -212,6 +235,16 @@
 
                 @media (max-width: $mobile) {
                     font-size: 18px;
+                }
+            }
+
+            .life {
+                display: flex;
+                justify-content: flex-start;
+
+                .heart-img {
+                    height: 20px;
+                    margin-right: 10px;
                 }
             }
         }

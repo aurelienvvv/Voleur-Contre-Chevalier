@@ -38,7 +38,6 @@ $mobile: 425px;
     80% {transform: translateY(-30px);}
     85% {transform: translateY(0px);}
     100% {transform: translateY(0);}
-
 }
 
 @keyframes player-jump {
@@ -195,7 +194,23 @@ $mobile: 425px;
     }
 }
 
-@keyframes anim-loser {
-    0% {background-color: violet !important;}
-    100% {background-color: blue !important;}
+
+@keyframes anim-cell {
+    0% {background-color: #78679b;}
+    50% {background-color: #a08acc;}
+    100% {background-color: #78679b;}
+}
+
+@keyframes opacity-changing {
+    0% {
+        opacity: .7;
+    }
+    
+    50% {
+        opacity: 1;
+    }
+    
+    100% {
+        opacity: .7;
+    }
 }

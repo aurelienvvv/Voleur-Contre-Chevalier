@@ -38,7 +38,6 @@ class Turn {
             new Turn();
         });
 
-
         // COMBAT //
         // si duel : affichage des options d'attaque
         this.isFight();
@@ -51,6 +50,7 @@ class Turn {
             this.openFightOptions();
 
             this.classOnDefense();
+
             // ajoute true à protect du joueur en cours
             this.player.protect = true;
 
@@ -77,6 +77,12 @@ class Turn {
     displayInfosPlayer() {
         // met à jour l'ecran d'affichage du joueur
         this.playerAttr = this.player.dataAttr;
+
+        // met à jour le css de la barre de vie après chaque tour
+        if (Data.countTurnFight === 0) {
+            $(`.player .life-line`).css('width', `100%`);
+            $(`.player .life-line`).removeClass('-red -orange -yellow');
+        }
 
         $(`[data-player]`).removeClass('current-player');
         $(`.players-wrapper .player`).removeClass('active');
@@ -256,13 +262,24 @@ class Turn {
         if (this.enemy[0].life <= 0) {
             let dataEnemy = $(`[data-player = ${this.enemy[0].dataAttr}]`);
 
-            dataEnemy.addClass('you-loose');
+            // met à met la vie de l'ennemi à 0
+            this.enemy[0].life = 0;
+            this.enemy[0].updatePlayerDom(this.enemy[0]);
+
+            setTimeout(() => {
+                $('.cell').removeClass('attacked attack-now');
+                dataEnemy.addClass('you-loose');
+            }, 500);
+
+            setTimeout(() => {
+                $(`[data-player = ${this.player.dataAttr}]`).addClass('you-win');
+            }, 700);
 
             // si l'ennemi n'a plus de vie, affiche l'écran de fin
             setTimeout(() => {
                 $('.win-screen').addClass('active');
                 $('.img-winner').addClass(this.player.dataAttr);
-                $('.winner-win-text').text(`${this.player.name}`)
+                $('.winner-win-text').text(`${this.player.name}`);
             }, 3000);
         } else {
             // sinon met à jour les classes du DOM
@@ -306,6 +323,21 @@ class Turn {
 
         // Retire le bouclier de l'ennemie si il en a un
         $(`[data-player = ${this.enemy[0].dataAttr}]`).removeClass('protect');
+
+        // barre de vie css
+        $(`.${this.enemy[0].dataAttr} .life-line`).css('width', `${this.enemy[0].life}%`);
+
+        if (this.enemy[0].life < 20) {
+            $(`.${this.enemy[0].dataAttr} .life-line`).addClass('-red').removeClass('-orange');
+        }
+
+        else if (this.enemy[0].life < 40) {
+            $(`.${this.enemy[0].dataAttr} .life-line`).addClass('-orange').removeClass('-yellow');
+        }
+
+        else if (this.enemy[0].life < 60) {
+            $(`.${this.enemy[0].dataAttr} .life-line`).addClass('-yellow');
+        }
 
         // classe qui ajoute une animation visuelle
         $('.current-player').addClass('attack-now');
@@ -363,35 +395,28 @@ class Turn {
 
             else {
                 if (currentPlayerOffset.top <= 250 && currentPlayerOffset.left <= 250) {
-                    console.log('1')
                     $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top - cellsOffset.top - 80}px`));
                 }
 
                 else if (currentPlayerOffset.top <= 190) {
-                    console.log('2')
                     $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top - cellsOffset.top - 80}px`));
                 }
 
                 else if (currentPlayerOffset.top >= 400 && currentPlayerOffset.left <= 250) {
-                    console.log('3')
                     $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top + 100}px`));
 
                 }
 
                 else if (currentPlayerOffset.top >= 400) {
-                    console.log('4')
                     $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top + 100}px`));
                 }
 
                 else if (currentPlayerOffset.left <= 250) {
-                    console.log('5')
 
                     $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top}px`));
                 }
 
                 else {
-                    console.log('default')
-
                     $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 100}px ${currentPlayerOffset.top}px`));
                 }
             }

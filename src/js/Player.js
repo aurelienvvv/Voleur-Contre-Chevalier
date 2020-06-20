@@ -9,7 +9,7 @@ class Player {
 
     updatePlayerDom(player) {
         $(`.players-wrapper .${player.dataAttr} .wrapper-infos .name`).html(`${player.name}`);
-        $(`.players-wrapper .${player.dataAttr} .wrapper-infos .life`).html(`Vie : ${player.life} %`);
+        $(`.players-wrapper .${player.dataAttr} .wrapper-infos .life`).html(`<img src='src/img/heart.webp' class='heart-img' alt='vie'> ${player.life} %`);
         $(`.players-wrapper .${player.dataAttr} .wrapper-infos .weapon`).html(`Arme : ${player.weapon.name}`);
 
 
