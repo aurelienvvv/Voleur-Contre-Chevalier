@@ -7,6 +7,10 @@ $('.start-btn').on('click', () => {
     $('.start-btn').off('click');
     game = new Game();
     $('.start-screen').removeClass('active');
+
+    setTimeout(() => {
+        $('.start-screen').css('display', 'none');
+    }, 1000);
 })
 
 $('.reload-btn').on('click', () => {

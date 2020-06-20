@@ -1187,6 +1187,7 @@ html {
           box-sizing: border-box;
   background: #101236;
   z-index: 50;
+  overflow: hidden;
 }
 
 @media (max-width: 425px) {
