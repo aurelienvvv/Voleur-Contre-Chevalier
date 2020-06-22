@@ -78,12 +78,6 @@ class Turn {
         // met à jour l'ecran d'affichage du joueur
         this.playerAttr = this.player.dataAttr;
 
-        // met à jour le css de la barre de vie après chaque tour
-        if (Data.countTurnFight === 0) {
-            $(`.player .life-line`).css('width', `100%`);
-            $(`.player .life-line`).removeClass('-red -orange -yellow');
-        }
-
         $(`[data-player]`).removeClass('current-player');
         $(`.players-wrapper .player`).removeClass('active');
         $(`.players-wrapper .player.${this.playerAttr}`).addClass('active');
@@ -231,14 +225,16 @@ class Turn {
     checkEnemyForFight(attrEnemy, positionEnemy, attr, position) {
         if ($(`[data-${attrEnemy} = ${positionEnemy}][data-${attr} = ${position}]`).hasClass('player')) {
             $(`[data-${attrEnemy} = ${positionEnemy}][data-${attr} = ${position}]`).addClass('attack-enemy');
-            $('body').addClass('fight-time');
 
             // detecte la position de l'ennemi et ajoute une classe correspondante
             if (attrEnemy === "y" && positionEnemy === this.dataY - 1) {
                 $(`[data-player=${this.player.dataAttr}]`).addClass('top-enemy');
+                $('.cells').addClass('vertical-fight');
 
             } else if (attrEnemy === "y" && positionEnemy === this.dataY + 1) {
                 $(`[data-player=${this.player.dataAttr}]`).addClass('bottom-enemy');
+                $('.cells').addClass('vertical-fight');
+
 
             } else if (attrEnemy === "x" && positionEnemy === this.dataX + 1) {
                 $(`[data-player=${this.player.dataAttr}]`).addClass('right-enemy');
@@ -248,6 +244,8 @@ class Turn {
                 $(`[data-player=${this.player.dataAttr}]`).addClass('left-enemy');
                 $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
             }
+
+            $('body').addClass('fight-time');
         };
     };
 
@@ -327,6 +325,9 @@ class Turn {
         // barre de vie css
         $(`.${this.enemy[0].dataAttr} .life-line`).css('width', `${this.enemy[0].life}%`);
 
+        console.log(this.enemy[0].dataAttr);
+        console.log(this.enemy[0].life);
+
         if (this.enemy[0].life < 20) {
             $(`.${this.enemy[0].dataAttr} .life-line`).addClass('-red').removeClass('-orange');
         }
@@ -354,75 +355,17 @@ class Turn {
     };
 
     zoomOnFight() {
-        if ($('.fight-time').length && Data.countTurnFight === 0) {
+        if ($('.fight-time').length) {
+            // supprimer toutes les cases qui ne contiennent pas les joueurs
+            let hasNotPlayer = $(".cell:not(.player)");
 
-            $('.cell').removeClass('place-players');
+            hasNotPlayer.addClass('disapered');
+            $('.fight-time-text').addClass('active');
 
-            // ajout d'une classe pour connaître la position des joueurs
-            $(`[data-player]`).addClass('place-players');
-
-            // connaitre la position des joueurs et du conteneur
-            let currentPlayerOffset = $('.place-players').offset();
-            let cellsOffset = $('.cells-container .cells').offset();
-
-            // conditions placement du transform origin selon la position des joueurs
-            if (Utils.isMobile()) {
-
-                if (currentPlayerOffset.top <= 250 && currentPlayerOffset.left >= 200) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left + 130}px ${currentPlayerOffset.top - cellsOffset.top}px`));
-                }
-
-                else if (currentPlayerOffset.top >= 350 && currentPlayerOffset.left >= 200) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left + 130}px ${currentPlayerOffset.top + 130}px`));
-                }
-
-                else if (currentPlayerOffset.top <= 250) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top - cellsOffset.top}px`));
-                }
-
-                else if (currentPlayerOffset.top >= 350) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top + 130}px`));
-                }
-
-                else if (currentPlayerOffset.left >= 200) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left + 130}px ${currentPlayerOffset.top}px`));
-                }
-
-                else {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - cellsOffset.left}px ${currentPlayerOffset.top}px`));
-                }
-            }
-
-            else {
-                if (currentPlayerOffset.top <= 250 && currentPlayerOffset.left <= 250) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top - cellsOffset.top - 80}px`));
-                }
-
-                else if (currentPlayerOffset.top <= 190) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top - cellsOffset.top - 80}px`));
-                }
-
-                else if (currentPlayerOffset.top >= 400 && currentPlayerOffset.left <= 250) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top + 100}px`));
-
-                }
-
-                else if (currentPlayerOffset.top >= 400) {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left}px ${currentPlayerOffset.top + 100}px`));
-                }
-
-                else if (currentPlayerOffset.left <= 250) {
-
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 180}px ${currentPlayerOffset.top}px`));
-                }
-
-                else {
-                    $('.fight-time .cells-container .cells').css('transform-origin', (`${currentPlayerOffset.left - 100}px ${currentPlayerOffset.top}px`));
-                }
-            }
-
-            // permet de ne pas relancer la méthode à chaque tour
-            Data.countTurnFight = 1;
+            setTimeout(() => {
+                hasNotPlayer.hide();
+                $('.cells').addClass('-flex-cells');
+            }, 1000)
         }
     }
 };
