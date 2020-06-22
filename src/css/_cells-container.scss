@@ -12,8 +12,7 @@
         grid-template-columns: repeat(10, 1fr);
         list-style: none;
         padding: 0;
-        transition: .5s ease-in-out
-        ;
+        transition: .5s ease-in-out;
 
         @media (max-width: $mobile) {
             width: 300px;
@@ -25,11 +24,6 @@
             height: 50px;
             border: 1px solid rgb(32, 32, 32);
             box-sizing: border-box;
-
-            @media (max-width: $mobile) {
-                width: 50px;
-                height: 50px;
-            }
 
             &.vide {
                 background: #30293e;

@@ -1,8 +1,8 @@
 // COLORS //
 $white: rgb(255, 255, 255);
-$black: rgb(14, 14, 14);
+$black: hsl(0, 0%, 5%);
 $lightgrey: rgb(190, 190, 190);
-$darkgrey: rgb(58, 58, 58);
+$darkgrey: hsl(0, 0%, 23%);
 $darkblue: rgb(16,18,54);
 $lightviolet: rgb(252, 163, 255);
 $violet: rgb(117, 55, 153);
@@ -65,23 +65,23 @@ $mobile: 425px;
 }
 
 @keyframes fight-background-player {
-    0% {background-color: $black;}
-    10% {background-color: $black;}
+    0% {background-color: #181818;}
+    10% {background-color: #181818;}
     15% {background-color: $darkviolet;}
-    20% {background-color: $black;}
+    20% {background-color: #181818;}
     25% {background-color: $darkviolet;}
-    35% {background-color: $black;}
-    100% {background-color: $black;}
+    35% {background-color: #181818;}
+    100% {background-color: #181818;}
 }
 
 @keyframes fight-background-player-2 {
-    0% {background-color: $black;}
-    10% {background-color: $black;}
+    0% {background-color: #181818;}
+    10% {background-color: #181818;}
     15% {background-color: $darkblue;}
-    20% {background-color: $black;}
+    20% {background-color: #181818;}
     25% {background-color: $darkblue;}
-    35% {background-color: $black;}
-    100% {background-color: $black;}
+    35% {background-color: #181818;}
+    100% {background-color: #181818;}
 }
 
 @keyframes weapons-rain {

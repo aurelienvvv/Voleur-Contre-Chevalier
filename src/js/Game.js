@@ -30,5 +30,10 @@ class Game {
         $('.img-winner').removeClass('player2');
         $('.winner-win-text').text(``);
         $('body').removeClass('fight-time');
+        $('.cells').removeClass('vertical-fight')
+        $('.fight-time-text').removeClass('active');
+        $('.cells').removeClass('-flex-cells');
+        $(`.player .life-line`).css('width', `100%`);
+        $(`.player .life-line`).removeClass('-red -orange -yellow');
     };
 };

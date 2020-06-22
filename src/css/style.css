@@ -226,97 +226,97 @@
 
 @-webkit-keyframes fight-background-player {
   0% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   10% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   15% {
     background-color: #361f44;
   }
   20% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   25% {
     background-color: #361f44;
   }
   35% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   100% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
 }
 
 @keyframes fight-background-player {
   0% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   10% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   15% {
     background-color: #361f44;
   }
   20% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   25% {
     background-color: #361f44;
   }
   35% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   100% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
 }
 
 @-webkit-keyframes fight-background-player-2 {
   0% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   10% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   15% {
     background-color: #101236;
   }
   20% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   25% {
     background-color: #101236;
   }
   35% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   100% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
 }
 
 @keyframes fight-background-player-2 {
   0% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   10% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   15% {
     background-color: #101236;
   }
   20% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   25% {
     background-color: #101236;
   }
   35% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
   100% {
-    background-color: #0e0e0e;
+    background-color: #181818;
   }
 }
 
@@ -454,7 +454,7 @@ html {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: #0e0e0e;
+  background-color: #0d0d0d;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -533,13 +533,6 @@ html {
   border: 1px solid #202020;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-}
-
-@media (max-width: 425px) {
-  .cells-container .cells .cell {
-    width: 50px;
-    height: 50px;
-  }
 }
 
 .cells-container .cells .cell.vide {
@@ -1187,7 +1180,6 @@ html {
           box-sizing: border-box;
   background: #101236;
   z-index: 50;
-  overflow: hidden;
 }
 
 @media (max-width: 425px) {
@@ -1222,7 +1214,7 @@ html {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(14, 14, 14, 0.2);
+  background-color: rgba(13, 13, 13, 0.2);
   -webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
           clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
   -webkit-transition: 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
@@ -1236,7 +1228,7 @@ html {
   position: absolute;
   top: 0;
   left: 0;
-  height: 3px;
+  height: 5px;
   width: 100%;
   background-color: green;
   z-index: 1;
@@ -1491,7 +1483,8 @@ html {
 
 .game-container {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .game-container .win-screen {
@@ -1839,6 +1832,97 @@ html {
           animation: weapons-rain-2 2s infinite;
 }
 
+.fight-time-text:after {
+  content: 'fight';
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  font-family: 'Contrail One', cursive;
+  text-transform: uppercase;
+  text-shadow: 0px 5px 1px #fca3ff;
+  font-size: 200px;
+  color: white;
+  z-index: -1;
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+@media (max-width: 425px) {
+  .fight-time-text:after {
+    font-size: 150px;
+  }
+}
+
+.fight-time-text.active:after {
+  opacity: 0;
+  z-index: 30;
+  -webkit-animation: fight-text 1.3s 2;
+          animation: fight-text 1.3s 2;
+}
+
+@-webkit-keyframes fight-text {
+  0% {
+    opacity: 0;
+    background-color: #181818;
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+    content: 'time';
+    background-color: #181818;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fight-text {
+  0% {
+    opacity: 0;
+    background-color: #181818;
+  }
+  20% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+    content: 'time';
+    background-color: #181818;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .fight-time.player1 {
   -webkit-animation: fight-background-player 2s infinite;
           animation: fight-background-player 2s infinite;
@@ -1849,21 +1933,64 @@ html {
           animation: fight-background-player-2 2s infinite;
 }
 
+.fight-time.top-enemy .player {
+  top: calc(50% - 50px);
+  left: 50%;
+}
+
 .fight-time .cells-container {
   overflow: hidden;
 }
 
-.fight-time .cells-container .cells {
-  -webkit-transform: scale(2);
-          transform: scale(2);
+.fight-time .cells-container .cells.-flex-cells {
+  -webkit-transform: scale(2.5);
+          transform: scale(2.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.fight-time .cells-container .cells.vertical-fight {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .fight-time .cells-container .cells .cell {
   background-color: transparent;
 }
 
+.fight-time .cells-container .cells .cell.disapered {
+  -webkit-transition: .5s;
+  transition: .5s;
+  opacity: 0;
+}
+
 .fight-time .cells-container .cells .cell.vide {
   background-color: transparent;
+}
+
+.fight-time .cells-container .cells .cell.position-fight.bottom-enemy {
+  top: calc(50% - 50px);
+}
+
+.fight-time .cells-container .cells .cell.position-fight.right-enemy {
+  left: calc(50% - 50px);
+}
+
+.fight-time .cells-container .cells .cell.position-fight.top-enemy {
+  top: calc(50% + 50px);
+}
+
+.fight-time .cells-container .cells .cell.position-fight.left-enemy {
+  left: calc(50% + 50px);
 }
 
 .fight-time .cells-container .cells .cell[data-player="player1"].current-player {

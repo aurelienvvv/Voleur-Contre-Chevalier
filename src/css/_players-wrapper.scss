@@ -8,7 +8,6 @@
     box-sizing: border-box;
     background: $darkblue;
     z-index: 50;
-    overflow: hidden;
 
     @media (max-width: $mobile) {
         width: 100%;
@@ -45,7 +44,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            height: 3px;
+            height: 5px;
             width: 100%;
             background-color: green;
             z-index: 1;
