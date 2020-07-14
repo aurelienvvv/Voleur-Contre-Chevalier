@@ -16,9 +16,16 @@ class Turn {
         // empêche de traverser les murs
         this.checkWalls();
 
-        // check si les joueurs sont face à face
-        this.checkEnemyAllDirections();
 
+        // regroupe les évènements au click
+        this.initEvent();
+
+        // COMBAT //
+        // check si les joueurs sont face à face, lance le combat
+        this.checkEnemyAllDirections();
+    };
+
+    initEvent() {
         // au click sur une case accessible
         $(".can-go").on('click', (e) => {
             this.$obj = $(e.currentTarget);
@@ -38,16 +45,10 @@ class Turn {
             new Turn();
         });
 
-        // COMBAT //
-        // si duel : affichage des options d'attaque
-        this.isFight();
-
-        // zoom visuel sur les joueurs au moment du combat
-        this.zoomOnFight();
-
         // au click sur le bouton de défense
         $(`.players-wrapper .${this.player.dataAttr} .btn-defense`).unbind().on('click', () => {
-            this.openFightOptions();
+            this.enemy = game.arrOfPlayers.filter(player => this.player.dataAttr !== player.dataAttr);
+            $(`.players-wrapper .fight-options`).removeClass('active');
 
             this.classOnDefense();
 
@@ -60,10 +61,12 @@ class Turn {
         // au click sur le bouton d'attaque
         $(`.players-wrapper .${this.player.dataAttr} .btn-attack`).unbind().on('click', () => {
             // choix d'attaquer ou de defendre
-            this.openFightOptions();
+            this.enemy = game.arrOfPlayers.filter(player => this.player.dataAttr !== player.dataAttr);
+            $(`.players-wrapper .fight-options`).removeClass('active');
+
             this.damagesOnHit();
 
-            // choix d'attaquer ou de defendre
+            // animation css à l'attaque
             this.classOnAttack();
 
             // retire true à protect de l'ennemi
@@ -72,7 +75,8 @@ class Turn {
             // relance un tour ou termine la partie
             this.fightCondition();
         });
-    };
+
+    }
 
     displayInfosPlayer() {
         // met à jour l'ecran d'affichage du joueur
@@ -83,7 +87,6 @@ class Turn {
         $(`.players-wrapper .player.${this.playerAttr}`).addClass('active');
         $(`[data-player = ${this.playerAttr}]`).addClass('current-player');
         $(`body`).addClass(`${this.playerAttr}`);
-        Data.startTurnPosition = $('.current-player');
     };
 
     whereCanGo() {
@@ -147,33 +150,33 @@ class Turn {
     };
 
     movePlayerConditions() {
-        this.startPlayerDataX = Data.startTurnPosition.data('x');
-        this.startPlayerDataY = Data.startTurnPosition.data('y');
+        this.startPlayerDataX = this.dataX;
+        this.startPlayerDataY = this.dataY;
 
         // si le joueur se déplace de la gauche vers la droite
         if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX <= this.endPlayerDataX) {
             $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
-            this.loopMove(this.startPlayerDataX, this.endPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
+            this.takeWeapon(this.startPlayerDataX, this.endPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
         }
 
         // si le joueur se déplace de la droite vers la gauche
         else if (this.startPlayerDataY === this.endPlayerDataY && this.startPlayerDataX >= this.endPlayerDataX) {
             $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
-            this.loopMove(this.endPlayerDataX, this.startPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
+            this.takeWeapon(this.endPlayerDataX, this.startPlayerDataX, this.endPlayerDataY, 'data-x', 'data-y');
         }
 
         // si le joueur se déplace de haut en bas
         else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY <= this.endPlayerDataY) {
-            this.loopMove(this.startPlayerDataY, this.endPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
+            this.takeWeapon(this.startPlayerDataY, this.endPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
         }
 
         // si le joueur se déplace de bas en haut
         else if (this.startPlayerDataX === this.endPlayerDataX && this.startPlayerDataY >= this.endPlayerDataY) {
-            this.loopMove(this.endPlayerDataY, this.startPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
+            this.takeWeapon(this.endPlayerDataY, this.startPlayerDataY, this.endPlayerDataX, 'data-y', 'data-x');
         };
     }
 
-    loopMove(startLoop, endLoop, staticDataYX, incrementAttribute, staticAttribute) {
+    takeWeapon(startLoop, endLoop, staticDataYX, incrementAttribute, staticAttribute) {
         for (let i = startLoop; i <= endLoop; i++) {
             let $currentCell = $(`[${incrementAttribute}=${i}][${staticAttribute}=${staticDataYX}]`);
             let cellWeapon = $currentCell.attr('data-weapon');
@@ -227,27 +230,42 @@ class Turn {
             $(`[data-${attrEnemy} = ${positionEnemy}][data-${attr} = ${position}]`).addClass('attack-enemy');
 
             // detecte la position de l'ennemi et ajoute une classe correspondante
-            if (attrEnemy === "y" && positionEnemy === this.dataY - 1) {
-                $(`[data-player=${this.player.dataAttr}]`).addClass('top-enemy');
-                $('.cells').addClass('vertical-fight');
+            this.enemyPosition(attrEnemy, positionEnemy);
 
-            } else if (attrEnemy === "y" && positionEnemy === this.dataY + 1) {
-                $(`[data-player=${this.player.dataAttr}]`).addClass('bottom-enemy');
-                $('.cells').addClass('vertical-fight');
-
-
-            } else if (attrEnemy === "x" && positionEnemy === this.dataX + 1) {
-                $(`[data-player=${this.player.dataAttr}]`).addClass('right-enemy');
-                $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
-
-            } else if (attrEnemy === "x" && positionEnemy === this.dataX - 1) {
-                $(`[data-player=${this.player.dataAttr}]`).addClass('left-enemy');
-                $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
-            }
-
-            $('body').addClass('fight-time');
+            // ajout des classes pour le combat
+            this.fightTimeDOM();
         };
     };
+
+    enemyPosition(attrEnemy, positionEnemy) {
+        // detecte la position de l'ennemi et ajoute une classe correspondante
+        if (attrEnemy === "y" && positionEnemy === this.dataY - 1) {
+            $(`[data-player=${this.player.dataAttr}]`).addClass('top-enemy');
+            $('.cells').addClass('vertical-fight');
+
+        } else if (attrEnemy === "y" && positionEnemy === this.dataY + 1) {
+            $(`[data-player=${this.player.dataAttr}]`).addClass('bottom-enemy');
+            $('.cells').addClass('vertical-fight');
+
+        } else if (attrEnemy === "x" && positionEnemy === this.dataX + 1) {
+            $(`[data-player=${this.player.dataAttr}]`).addClass('right-enemy');
+            $(`[data-player=${this.player.dataAttr}]`).removeClass('to-left');
+
+        } else if (attrEnemy === "x" && positionEnemy === this.dataX - 1) {
+            $(`[data-player=${this.player.dataAttr}]`).addClass('left-enemy');
+            $(`[data-player=${this.player.dataAttr}]`).addClass('to-left');
+        }
+    };
+
+    fightTimeDOM() {
+        $('body').addClass('fight-time');
+        $('.cell').removeClass('can-go');
+        $('.cell').off('click');
+        $(`.players-wrapper .${this.player.dataAttr} .fight-options`).addClass('active');
+
+        // zoom visuel sur les joueurs au moment du combat
+        this.zoomOnFight();
+    }
 
     checkEnemyAllDirections() {
         this.checkEnemyForFight('x', this.dataX - 1, 'y', this.dataY);
@@ -264,21 +282,7 @@ class Turn {
             this.enemy[0].life = 0;
             this.enemy[0].updatePlayerDom(this.enemy[0]);
 
-            setTimeout(() => {
-                $('.cell').removeClass('attacked attack-now');
-                dataEnemy.addClass('you-loose');
-            }, 500);
-
-            setTimeout(() => {
-                $(`[data-player = ${this.player.dataAttr}]`).addClass('you-win');
-            }, 700);
-
-            // si l'ennemi n'a plus de vie, affiche l'écran de fin
-            setTimeout(() => {
-                $('.win-screen').addClass('active');
-                $('.img-winner').addClass(this.player.dataAttr);
-                $('.winner-win-text').text(`${this.player.name}`);
-            }, 3000);
+            this.endFightAnimations(dataEnemy);
         } else {
             // sinon met à jour les classes du DOM
             $(`[data-player = ${this.player.dataAttr}]`).removeClass('current-player');
@@ -295,19 +299,6 @@ class Turn {
         };
     };
 
-    openFightOptions() {
-        this.enemy = game.arrOfPlayers.filter(player => this.player.dataAttr !== player.dataAttr);
-        $(`.players-wrapper .fight-options`).removeClass('active');
-    };
-
-    isFight() {
-        if ($('.fight-time').length) {
-            $('.cell').removeClass('can-go');
-            $('.cell').off('click');
-            $(`.players-wrapper .${this.player.dataAttr} .fight-options`).addClass('active');
-        };
-    };
-
     classOnDefense() {
         $('.cell').removeClass('attack-now');
         $('.cell').removeClass('attacked');
@@ -319,14 +310,11 @@ class Turn {
         $('.cell').removeClass('attack-now');
         $('.cell').removeClass('attacked');
 
-        // Retire le bouclier de l'ennemie si il en a un
+        // Retire le bouclier de l'ennemi si il en a un
         $(`[data-player = ${this.enemy[0].dataAttr}]`).removeClass('protect');
 
         // barre de vie css
         $(`.${this.enemy[0].dataAttr} .life-line`).css('width', `${this.enemy[0].life}%`);
-
-        console.log(this.enemy[0].dataAttr);
-        console.log(this.enemy[0].life);
 
         if (this.enemy[0].life < 20) {
             $(`.${this.enemy[0].dataAttr} .life-line`).addClass('-red').removeClass('-orange');
@@ -355,17 +343,33 @@ class Turn {
     };
 
     zoomOnFight() {
-        if ($('.fight-time').length) {
-            // supprimer toutes les cases qui ne contiennent pas les joueurs
-            let hasNotPlayer = $(".cell:not(.player)");
+        // supprimer toutes les cases qui ne contiennent pas les joueurs
+        let hasNotPlayer = $(".cell:not(.player)");
 
-            hasNotPlayer.addClass('disapered');
-            $('.fight-time-text').addClass('active');
+        hasNotPlayer.addClass('disapered');
+        $('.fight-time-text').addClass('active');
 
-            setTimeout(() => {
-                hasNotPlayer.hide();
-                $('.cells').addClass('-flex-cells');
-            }, 1000)
-        }
+        setTimeout(() => {
+            hasNotPlayer.hide();
+            $('.cells').addClass('-flex-cells');
+        }, 1000)
+    };
+
+    endFightAnimations(dataEnemy) {
+        setTimeout(() => {
+            $('.cell').removeClass('attacked attack-now');
+            dataEnemy.addClass('you-loose');
+        }, 500);
+
+        setTimeout(() => {
+            $(`[data-player = ${this.player.dataAttr}]`).addClass('you-win');
+        }, 700);
+
+        // si l'ennemi n'a plus de vie, affiche l'écran de fin
+        setTimeout(() => {
+            $('.win-screen').addClass('active');
+            $('.img-winner').addClass(this.player.dataAttr);
+            $('.winner-win-text').text(`${this.player.name}`);
+        }, 3000);
     }
 };

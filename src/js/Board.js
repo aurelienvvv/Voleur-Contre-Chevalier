@@ -32,7 +32,7 @@ class Board {
         };
     };
 
-    // Génération de 100 cases
+    // Génération de toutes les cases
     generateAllCells() {
         let arrCells = [];
 
@@ -64,6 +64,7 @@ class Board {
 
             cellsWithCoordonates.push(allCells[i]);
         };
+
 
         return cellsWithCoordonates;
     };

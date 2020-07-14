@@ -17,8 +17,6 @@ class Game {
 
         new Board(this.arrOfPlayers, this.arrOfWeapons);
 
-        Data.countTurnFight = 0;
-
         new Turn();
     };
 

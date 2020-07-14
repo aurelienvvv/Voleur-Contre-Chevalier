@@ -11,7 +11,7 @@ $('.start-btn').on('click', () => {
     setTimeout(() => {
         $('.start-screen').css('display', 'none');
     }, 1000);
-})
+});
 
 $('.reload-btn').on('click', () => {
     $('.win-screen').removeClass('active');
